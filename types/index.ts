@@ -1,21 +1,21 @@
 import { Product, ProductImage } from "@prisma/client";
 
-type ContainerProps = {
+export type ContainerProps = {
     children: React.ReactNode;
 }
 
-type DropDownItemProps = {
+export type DropDownItemProps = {
     title: string
     children: React.ReactNode
 }
 
-type ProductDetailsProps = {
+export type ProductDetailsProps = {
     params: {
         slug: string
     }
 }
 
-type ProductProps = {
+export type ProductProps = {
     name?: string
     slug?: string
     desc?: string
@@ -23,7 +23,7 @@ type ProductProps = {
     brandId?: number
 }
 
-type userProps = {
+export type userProps = {
     firstName: string;
     lastName: string;
     gender: string;

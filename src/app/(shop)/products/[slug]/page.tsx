@@ -1,5 +1,6 @@
 import { ProductView } from '@/src/components'
 import { db } from '@/src/lib/db'
+import { ProductDetailsProps } from '@/types'
 import React from 'react'
 
 export default async function Product({params}: ProductDetailsProps) {

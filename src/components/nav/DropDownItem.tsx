@@ -1,4 +1,5 @@
 "use client"
+import { DropDownItemProps } from '@/types'
 import React, { useState } from 'react'
 
 // styling

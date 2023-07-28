@@ -1,3 +1,5 @@
+import { userProps } from "@/types"
+
 let errors = {
     firstName: "",
     lastName: "",

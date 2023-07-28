@@ -7,7 +7,7 @@ import OrderSummary from '@/src/components/OrderSummary';
 import { CartProduct } from '@/types';
 import { useZustand } from '../../store/useZustand';
 import ContactForm from '@/src/components/forms/ContactForm';
-import CheckoutProductCard from '@/src/components/checkoutProductCard';
+import CheckoutProductCard from '@/src/components/CheckoutProductCard';
 
 export default function CheckOut() {
   const prop = useZustand(useCart, state => state)

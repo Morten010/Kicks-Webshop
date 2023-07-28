@@ -41,7 +41,7 @@ export const authOptions: NextAuthOptions  = {
                 }
 
                 // return user object if everything is valid
-                return user;
+                return user as any;
             },
         }),
     ],

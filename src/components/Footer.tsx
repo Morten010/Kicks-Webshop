@@ -60,7 +60,7 @@ export default function Footer() {
                     About us
                 </h2>
                 <p>
-                    We are the biggest hyperstore in the universe. We got you all cover with our exclusive collections and latest drops.
+                    We are the biggest hyperstore in the universe. We got you all covered with our exclusive collections and latest drops.
                 </p>
             </div>
 

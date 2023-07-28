@@ -1,6 +1,7 @@
 "use server"
 import bcrypt from "bcrypt";
 import {db} from "@/src/lib/db"
+import { userProps } from "@/types";
 
 export default async function createUser(user: userProps){
 

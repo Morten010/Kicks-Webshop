@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nav-hover{
+    @apply transition-colors cursor-pointer duration-200 hover:text-[#8F8C91]
+}
+.primary-btn{
+    @apply bg-brand-blue py-2 px-4 rounded-md hover:opacity-80 transition-opacity text-white
+}
+.secondary-btn{
+    @apply bg-brand-black py-2 px-4 rounded-md hover:opacity-80 transition-opacity text-white
+}
+.danger-btn{
+    @apply bg-red-700 py-2 px-4 rounded-md hover:opacity-80 transition-opacity text-white
+}
+.ghost-btn{
+  @apply border border-black py-2 px-4 rounded-md text-black font-semibold hover:bg-black hover:text-white transition-colors 
+}
+.heading{
+    @apply sm:text-5xl lg:text-6xl font-bold text-3xl
+}
+
+.product-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.category-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+/* scrollbar */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+/* loading spinner */
+.loader {
+  width: 48px;
+  height: 48px;
+  margin: auto;
+  position: relative;
+}
+
+.loader:before {
+  content: '';
+  width: 48px;
+  height: 5px;
+  background: #4a68e250;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  border-radius: 50%;
+  animation: shadow324 0.5s linear infinite;
+}
+
+.loader:after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background: #4A69E2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 4px;
+  animation: jump7456 0.5s linear infinite;
+}
+
+@keyframes jump7456 {
+  15% {
+    border-bottom-right-radius: 3px;
+  }
+
+  25% {
+    transform: translateY(9px) rotate(22.5deg);
+  }
+
+  50% {
+    transform: translateY(18px) scale(1, .9) rotate(45deg);
+    border-bottom-right-radius: 40px;
+  }
+
+  75% {
+    transform: translateY(9px) rotate(67.5deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(90deg);
+  }
+}
+
+@keyframes shadow324 {
+
+  0%,
+    100% {
+    transform: scale(1, 1);
+  }
+
+  50% {
+    transform: scale(1.2, 1);
+  }
+}

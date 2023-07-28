@@ -28,7 +28,7 @@ export default async function Home() {
       {/* hero title end */}
       <HeroProduct />
       {/* hero product */}
-      <Products products={products}/>
+      {products && <Products products={products}/>}
       {/* hero product end */}
 
     </main>

@@ -6,9 +6,16 @@ import React from 'react'
 import ProductCard from './ProductCard'
 
 type ProductProps = {
-  products?: Product & {
-      productImage?: ProductImage[]
-  }[]
+    products: {
+      id: number
+      name: string
+      slug: string
+      desc: string
+      price: number
+      brandId: number
+      gender: string
+      productImage: ProductImage[]
+    }[]
 }
 
 export default function Products({products}: ProductProps) {

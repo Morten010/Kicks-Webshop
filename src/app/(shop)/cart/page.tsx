@@ -2,7 +2,7 @@
 import OrderSummary from '@/src/components/OrderSummary'
 import { useZustand } from '../../store/useZustand'
 import { useCart } from '../../store/useCart'
-import CheckoutProductCard from '@/src/components/checkoutProductCard'
+import CheckoutProductCard from '@/src/components/CheckoutProductCard'
 import { CartProduct } from '@/types'
 
 export default function page() {

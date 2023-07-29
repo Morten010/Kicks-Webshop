@@ -14,9 +14,11 @@ type ProductProps = {
       price: number
       brandId: number
       gender: string
+      createdAt: Date
       productImage: ProductImage[]
     }[]
 }
+
 
 export default function Products({products}: ProductProps) {
 

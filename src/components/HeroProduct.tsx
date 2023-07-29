@@ -9,7 +9,7 @@ export default function HeroProduct() {
     >
         {/* product tag */}
         <h3
-        className='z-50 absolute -rotate-90 top-0 left-1 -translate-x-[40%] sm:translate-y-[230%] translate-y-[200%] bg-brand-black text-white p-3 rounded-b-lg text-sm sm:text-md lg:text-lg'
+        className='z-10 absolute -rotate-90 top-0 left-1 -translate-x-[40%] sm:translate-y-[230%] translate-y-[200%] bg-brand-black text-white p-3 rounded-b-lg text-sm sm:text-md lg:text-lg'
         >
             Nike product of the year 
         </h3>

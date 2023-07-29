@@ -39,7 +39,7 @@ export default function Navbar() {
         if(showMen){
             setShowMen(false)
         }
-        if(showCart){
+        if(showWomen){
             setShowWomen(false)
         }
         setShowCart(!showCart)

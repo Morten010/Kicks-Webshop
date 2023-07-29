@@ -19,7 +19,7 @@ export default function Cart({showCart, setShowCart}: {
     <>
         <div
         className='text-sm bg-brand-yellow aspect-square w-6 h-6 grid place-content-center rounded-full font-semibold hover:cursor-pointer select-none'
-        onClick={() => setShowCart}
+        onClick={() => setShowCart()}
         >
             {prop ? prop.totalItems : 0}
         </div>

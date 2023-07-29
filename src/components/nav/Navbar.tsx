@@ -26,7 +26,7 @@ export default function Navbar() {
     }
 
     const handleMen = () => {
-        if(showMen){
+        if(showWomen){
             setShowWomen(false)
         }
         if(showCart){
@@ -43,6 +43,8 @@ export default function Navbar() {
             setShowWomen(false)
         }
         setShowCart(!showCart)
+        console.log(showCart);
+        
     }
 
   return (
@@ -114,7 +116,7 @@ export default function Navbar() {
                     />
                 </Link>
             </li>
-            <Cart showCart={showCart} setShowCart={handleCart}/>
+            <Cart showCart={showCart} setShowCart={ handleCart}/>
         </ul>
         {/* user section end */}
     </nav>

@@ -23,7 +23,7 @@
 
 .product-grid{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 20px;
 }
 
@@ -31,6 +31,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+}
+
+.input-field{
+  @apply bg-transparent border border-brand-black rounded-md p-2 
 }
 
 /* scrollbar */

@@ -11,6 +11,7 @@ type ProductProps = {
 }
 
 export default function ProductCard({product}: ProductProps) {
+
   return (
     <div
     className='flex flex-col gap-2'

@@ -10,7 +10,7 @@
     "postinstall": "prisma generate",
     "migrations:generate": "drizzle-kit generate:mysql",
     "migrations:push": "node -r esbuild-register src/lib/db/migrate.ts",
-    "db:push": "drizzle-kit push:mysql --config=drizzle.config.ts",
+    "db:push": "dotenv -e .env.local prisma db push",
     "migrations:drop": "drizzle-kit drop --config=drizzle.config.ts"
   },
   "dependencies": {

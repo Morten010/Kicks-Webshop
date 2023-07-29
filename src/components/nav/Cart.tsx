@@ -10,14 +10,16 @@ import { CartProduct } from '@/types';
 import { useZustand } from '@/src/app/store/useZustand';
 
 
-export default function Cart({showCart, setShowCart}: {showCart: boolean, setShowCart: (x: boolean) => void}) {
+export default function Cart({showCart, setShowCart}: {
+    showCart: boolean, setShowCart: () => void}
+    ) {
     const prop = useZustand(useCart, (state) => state)
 
   return (
     <>
         <div
         className='text-sm bg-brand-yellow aspect-square w-6 h-6 grid place-content-center rounded-full font-semibold hover:cursor-pointer select-none'
-        onClick={() => setShowCart(!showCart)}
+        onClick={() => setShowCart}
         >
             {prop ? prop.totalItems : 0}
         </div>

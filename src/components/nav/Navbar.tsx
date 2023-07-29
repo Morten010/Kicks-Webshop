@@ -1,7 +1,6 @@
 "use client"
 import Image from 'next/image'
 import React, {useState} from 'react'
-import dynamic from 'next/dynamic'
 
 //styling
 import {BiSolidUser, BiSearch} from "react-icons/bi"
@@ -13,6 +12,38 @@ import Cart from './Cart'
 
 export default function Navbar() {
     const [showCart, setShowCart] = useState(false)
+    const [showMen, setShowMen] = useState(false)
+    const [showWomen, setShowWomen] = useState(false)
+
+    const handleWomen = () => {
+        if(showMen){
+            setShowMen(false)
+        }
+        if(showCart){
+            setShowCart(false)
+        }
+        setShowWomen(!showWomen)
+    }
+
+    const handleMen = () => {
+        if(showMen){
+            setShowWomen(false)
+        }
+        if(showCart){
+            setShowCart(false)
+        }
+        setShowMen(!showMen)
+    }
+
+    const handleCart = () => {
+        if(showMen){
+            setShowMen(false)
+        }
+        if(showCart){
+            setShowWomen(false)
+        }
+        setShowCart(!showCart)
+    }
 
   return (
     <nav
@@ -29,13 +60,21 @@ export default function Navbar() {
             >
                 New Drops🔥
             </li>
-            <DropDownItem title='Men'>
+            <DropDownItem 
+            title='Men' 
+            show={showMen} 
+            setShow={handleMen}
+            >
                 <ul>
                     <li>Runners</li>
                     <li>Sneakers</li>
                 </ul>
             </DropDownItem>
-            <DropDownItem title='Women'>
+            <DropDownItem 
+            title='Women'
+            show={showWomen} 
+            setShow={handleWomen}
+            >
                 <ul>
                     <li>Runners</li>
                     <li>Sneakers</li>
@@ -75,7 +114,7 @@ export default function Navbar() {
                     />
                 </Link>
             </li>
-            <Cart showCart={showCart} setShowCart={setShowCart}/>
+            <Cart showCart={showCart} setShowCart={handleCart}/>
         </ul>
         {/* user section end */}
     </nav>

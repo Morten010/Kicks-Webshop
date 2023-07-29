@@ -96,6 +96,7 @@ model Product {
   price   Int
   brandId Int
   gender String
+  createdAt DateTime @default(now())
 
   productImage ProductImage[]
   size         Size[]

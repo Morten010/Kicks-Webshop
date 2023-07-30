@@ -48,7 +48,9 @@ export default function SearchForm({count, sizes}: {
         router.push(`${pathname}${query}`);
     }
 
-    const handleGender = (e:any) => {   
+    const handleGender = (e:any) => { 
+        console.log(gender, e.target.value);
+          
        if(gender === e.target.value){
         setGender("")
        }else{
@@ -57,8 +59,6 @@ export default function SearchForm({count, sizes}: {
     }
 
     const handleSize = (newSize: number) => {
-        console.log(newSize);
-        
         if(size.includes(newSize.toString())){
             setSize(size.filter(s => s !== newSize.toString()))
         }else{
@@ -130,7 +130,7 @@ export default function SearchForm({count, sizes}: {
                 id="male" 
                 value="male" 
                 className='hidden'
-                onChange={handleGender}
+                onClick={(e) => handleGender(e)}
                 />
                 {gender === "male" ? (
                     <MdOutlineCheckBox 
@@ -152,7 +152,7 @@ export default function SearchForm({count, sizes}: {
                 id="female" 
                 value="female" 
                 className='hidden'
-                onChange={handleGender}
+                onClick={handleGender}
                 />
                 {gender === "female" ? (
                     <MdOutlineCheckBox 

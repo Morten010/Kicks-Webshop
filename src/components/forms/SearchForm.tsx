@@ -130,7 +130,7 @@ export default function SearchForm({count, sizes}: {
                 id="male" 
                 value="male" 
                 className='hidden'
-                onClick={(e) => handleGender(e)}
+                onClick={handleGender}
                 />
                 {gender === "male" ? (
                     <MdOutlineCheckBox 

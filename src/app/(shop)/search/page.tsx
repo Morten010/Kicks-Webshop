@@ -1,7 +1,9 @@
 import { ProductCard } from '@/src/components';
 import SearchForm from '@/src/components/forms/SearchForm';
+import SearchFormContainer from '@/src/components/forms/SearchFormContainer';
 import { db } from '@/src/lib/db'
 import React from 'react'
+import {IoSettingsSharp} from "react-icons/io5"
 
 type SearchProps = {
   searchParams: {
@@ -12,8 +14,7 @@ type SearchProps = {
 }
 
 export default async function Search({searchParams}: SearchProps) {
-  console.log("params:", searchParams);
-  console.log(typeof searchParams.sizes);
+  // format search sizes for get request
   let searchSizes: number[] | undefined = undefined
   if(typeof searchParams.sizes === "string"){
     searchSizes = [parseInt(searchParams.sizes)]
@@ -59,16 +60,16 @@ export default async function Search({searchParams}: SearchProps) {
 
   return (
     <div
-    className='flex gap-4'
+    className='flex flex-col lg:flex-row gap-4'
     >
       <div
-      className='w-[30%]'
+      className='w-full lg:w-[30%] lg:inline-block'
       >
-        <SearchForm count={count} sizes={sortedSizes}/>
+        <SearchFormContainer count={count} sizes={sortedSizes} />
       </div>
       {/* product grid */}
       <div
-      className='w-[70%] h-full'
+      className='w-full lg:w-[70%] h-full'
       >
         <div
         className='product-grid h-full'

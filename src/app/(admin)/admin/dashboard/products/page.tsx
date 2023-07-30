@@ -1,6 +1,5 @@
 import { ProductAdminCard } from '@/src/components'
 import { db } from '@/src/lib/db'
-import { products } from '@/src/lib/db/schema'
 import Link from 'next/link'
 import React from 'react'
 import { AiOutlinePlusCircle } from 'react-icons/ai'

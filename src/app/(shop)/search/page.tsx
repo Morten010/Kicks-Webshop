@@ -5,29 +5,57 @@ import React from 'react'
 
 type SearchProps = {
   searchParams: {
-      name: string
+      name?: string
+      gender?: string
+      sizes?: string[]
   }
 }
 
 export default async function Search({searchParams}: SearchProps) {
   console.log("params:", searchParams);
+  console.log(typeof searchParams.sizes);
+  let searchSizes: number[] | undefined = undefined
+  if(typeof searchParams.sizes === "string"){
+    searchSizes = [parseInt(searchParams.sizes)]
+  } else if(typeof searchParams.sizes === "object"){
+    searchSizes = searchParams.sizes.map(s => {return parseInt(s)})
+  }
+
   const count = await db.product.count({
     where: {
       name: {
         contains: searchParams.name
-      }
+      },
+      gender: searchParams.gender,
     },
   }) 
+  
+
   const products = await db.product.findMany({
     where: {
       name: {
         contains: searchParams.name
-      }
+      },
+      gender: searchParams.gender,
+      size: {
+        some: {
+          size: {
+            in: searchSizes
+          }
+        }
+      }, 
     },
     include: {
       productImage: true,
+      size: true,
     }
   })
+
+  const sizes = await db.size.groupBy({
+    by: ['size'],
+  })
+  
+  const sortedSizes = sizes.map(item => {return item.size})
 
   return (
     <div
@@ -36,7 +64,7 @@ export default async function Search({searchParams}: SearchProps) {
       <div
       className='w-[30%]'
       >
-        <SearchForm count={count}/>
+        <SearchForm count={count} sizes={sortedSizes}/>
       </div>
       {/* product grid */}
       <div
@@ -46,7 +74,7 @@ export default async function Search({searchParams}: SearchProps) {
         className='product-grid h-full'
         >
           {products.length !== 0 && products.map(p => (
-            <ProductCard product={p} />
+            <ProductCard product={p} key={p.id}/>
           ))}
           {products.length === 0 && (
             <div

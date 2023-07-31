@@ -18,8 +18,6 @@ export default function Navbar() {
     const [showMobileMenu, setShowMobileMenu] = useState(false)
     const pathname = usePathname()
 
-    console.log(pathname);
-    
     useEffect(() => {
         if(showMen){
             setShowMen(false)

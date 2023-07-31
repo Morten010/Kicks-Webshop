@@ -94,7 +94,7 @@ export default function SearchForm({count, sizes}: {
         >
             <input 
             type="text" 
-            placeholder='Hey' 
+            placeholder='Ultra Boost..' 
             className='input-field flex-grow'
             value={name}
             onChange={(e) => setName(e.target.value)}

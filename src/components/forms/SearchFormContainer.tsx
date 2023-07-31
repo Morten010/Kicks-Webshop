@@ -22,7 +22,7 @@ export default function SearchFormContainer({count, sizes}: {
             >
                 <input 
                 type="text" 
-                placeholder='Hey' 
+                placeholder='Ultra Boost..' 
                 className='input-field flex-grow text-base'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -34,7 +34,7 @@ export default function SearchFormContainer({count, sizes}: {
                 </button>
             </div>}
             <IoSettingsSharp 
-            className='select-none'
+            className='select-none my-2'
             onClick={() => setShowForm(!showForm)}
             />
         </div>

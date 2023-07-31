@@ -1,8 +1,10 @@
 "use client"
+import Link from 'next/link'
 import React, { useState } from 'react'
 
 // styling
 import {AiOutlineMenu, AiOutlineClose} from "react-icons/ai"
+import { BiSolidUser } from 'react-icons/bi'
 
 export default function NavDropDown() {
     const [showMenu, setShowMenu] = useState(false)
@@ -36,12 +38,25 @@ export default function NavDropDown() {
             <li
             className='nav-hover'
             >
-                Men
+                <Link href="/search?gender=male">
+                    Men
+                </Link>
             </li>
             <li
             className='nav-hover'
             >
-                Women
+                <Link href="/search?gender=female">
+                    Women
+                </Link>
+            </li>
+            <li
+            className='flex justify-center'
+            >
+                <Link href="/profile">
+                    <BiSolidUser 
+                    className='nav-hover text-xl'
+                    />
+                </Link>
             </li>
         </ul>}
         {/* end of menu */}

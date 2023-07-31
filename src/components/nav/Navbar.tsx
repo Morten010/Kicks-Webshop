@@ -100,16 +100,18 @@ export default function Navbar() {
 
         {/* user section */}
         <ul
-        className='flex gap-6 text-2xl'
+        className='flex gap-3 sm:gap-6 text-2xl items-center'
         >
             <li>
                 <Link href="search">
                     <BiSearch 
-                    className='nav-hover hidden sm:block'
+                    className='nav-hover'
                     />
                 </Link>
             </li>
-            <li>
+            <li
+            className='hidden sm:block'
+            >
                 <Link href="/profile">
                     <BiSolidUser 
                     className='nav-hover'

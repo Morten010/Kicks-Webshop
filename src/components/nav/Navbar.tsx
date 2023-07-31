@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 //styling
 import {BiSolidUser, BiSearch} from "react-icons/bi"
@@ -8,6 +8,7 @@ import NavDropDown from './NavDropDown'
 import Link from 'next/link'
 import DropDownItem from './DropDownItem'
 import Cart from './Cart'
+import { usePathname } from 'next/navigation'
 
 
 export default function Navbar() {
@@ -15,6 +16,25 @@ export default function Navbar() {
     const [showMen, setShowMen] = useState(false)
     const [showWomen, setShowWomen] = useState(false)
     const [showMobileMenu, setShowMobileMenu] = useState(false)
+    const pathname = usePathname()
+
+    console.log(pathname);
+    
+    useEffect(() => {
+        if(showMen){
+            setShowMen(false)
+        }
+        if(showWomen){
+            setShowWomen(false)
+        }
+        if(showCart){
+            setShowCart(false)
+        }
+        if(showMobileMenu){
+            setShowMobileMenu(false)
+        }
+    }, [pathname])
+    
 
     const handleWomen = () => {
         if(showMen){

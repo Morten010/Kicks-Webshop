@@ -101,7 +101,22 @@ export default function Navbar() {
             >
                 New Drops🔥
             </li>
-            <DropDownItem 
+            <li
+            className='nav-hover'
+            >
+                <Link href="/search?gender=male">
+                    Men
+                </Link>
+            </li>
+            <li
+            className='nav-hover'
+            >
+                <Link href="/search?gender=female">
+                    Women
+                </Link>
+            </li>
+
+            {/* <DropDownItem 
             title='Men' 
             show={showMen} 
             setShow={handleMen}
@@ -120,7 +135,7 @@ export default function Navbar() {
                     <li>Runners</li>
                     <li>Sneakers</li>
                 </ul>
-            </DropDownItem>
+            </DropDownItem> */}
         </ul>
         {/* menu list end */}
 

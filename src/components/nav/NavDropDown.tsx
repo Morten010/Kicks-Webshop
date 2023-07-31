@@ -6,12 +6,10 @@ import React, { useState } from 'react'
 import {AiOutlineMenu, AiOutlineClose} from "react-icons/ai"
 import { BiSolidUser } from 'react-icons/bi'
 
-export default function NavDropDown() {
-    const [showMenu, setShowMenu] = useState(false)
-    
-    const handleClick = () => {
-        setShowMenu(!showMenu)
-    }
+export default function NavDropDown({showMenu, handleClick}:{
+    showMenu: boolean
+    handleClick: () => void
+}) {
 
   return (
     <>

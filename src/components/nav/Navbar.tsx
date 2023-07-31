@@ -14,6 +14,7 @@ export default function Navbar() {
     const [showCart, setShowCart] = useState(false)
     const [showMen, setShowMen] = useState(false)
     const [showWomen, setShowWomen] = useState(false)
+    const [showMobileMenu, setShowMobileMenu] = useState(false)
 
     const handleWomen = () => {
         if(showMen){
@@ -21,6 +22,9 @@ export default function Navbar() {
         }
         if(showCart){
             setShowCart(false)
+        }
+        if(showMobileMenu){
+            setShowMobileMenu(false)
         }
         setShowWomen(!showWomen)
     }
@@ -32,6 +36,9 @@ export default function Navbar() {
         if(showCart){
             setShowCart(false)
         }
+        if(showMobileMenu){
+            setShowMobileMenu(false)
+        }
         setShowMen(!showMen)
     }
 
@@ -42,9 +49,23 @@ export default function Navbar() {
         if(showWomen){
             setShowWomen(false)
         }
+        if(showMobileMenu){
+            setShowMobileMenu(false)
+        }
         setShowCart(!showCart)
-        console.log(showCart);
-        
+    }
+
+    const handleMobileMenu = () => {
+        if(showMen){
+            setShowMen(false)
+        }
+        if(showWomen){
+            setShowWomen(false)
+        }
+        if(showCart){
+            setShowCart(false)
+        }
+        setShowMobileMenu(!showMobileMenu)
     }
 
   return (
@@ -52,7 +73,7 @@ export default function Navbar() {
     className='bg-white px-4 py-6 rounded-xl relative flex items-center justify-between z-50'
     >
         {/* phone menu */}
-        <NavDropDown />
+        <NavDropDown handleClick={handleMobileMenu} showMenu={showMobileMenu}/>
         {/* phone menu */}
 
         {/* menu list */}

@@ -7,6 +7,9 @@ export const revalidate = 3600;
 export default async function Home() {
 
   const products = await db.product.findMany({
+    orderBy: {
+      createdAt: "desc"
+    },
     include: {
       productImage: true,
     },

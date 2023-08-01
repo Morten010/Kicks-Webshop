@@ -11,6 +11,10 @@ type ProductProps = {
 }
 
 export default function ProductCard({product}: ProductProps) {
+    const today = new Date().getTime();
+    const createdAt = new Date(product.createdAt).getTime();
+    const compare = today - createdAt
+    
 
   return (
     <div
@@ -21,8 +25,15 @@ export default function ProductCard({product}: ProductProps) {
         className='p-1.5 bg-white rounded-xl'
         >
             <div 
-            className='aspect-square w-full relative' 
+            className='aspect-square w-full relative rounded-lg overflow-hidden' 
             >
+                {compare < 1000 * 60 * 60 * 24 * 7 && (
+                    <p
+                    className='absolute z-10 top-0 left-0 py-1.5 px-3 font-semibold text-white bg-brand-blue rounded-br-xl text-sm'
+                    >
+                        New
+                    </p>
+                )}
                 {product.productImage && <Image
                 fill
                 src={product.productImage[0].fileUrl}
@@ -32,9 +43,9 @@ export default function ProductCard({product}: ProductProps) {
             </div>
         </div>
         {/* image container */}
-
+        
         <h3
-        className='font-bold text-lg sm:text-xl lg:text-2xl'
+        className='font-bold text-2xl'
         >
             {product.name.slice(0, 20)}...
         </h3>

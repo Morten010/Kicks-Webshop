@@ -229,7 +229,7 @@ export default function SearchForm({count, sizes}: {
             options={OrderByOptions}
             onChange={handleOrderBy}
             value={orderBy}
-            className='mb-4 mt-2'
+            className='mb-4 mt-2 z-50'
             />
         )}
         {/* end of sort by */}

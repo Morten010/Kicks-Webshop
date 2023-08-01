@@ -99,7 +99,7 @@ export default function Navbar() {
             <li
             className='nav-hover'
             >
-                <Link href="/search??orderby=desc">
+                <Link href="/search?orderby=desc">
                     New Drops🔥
                 </Link>
             </li>
@@ -117,28 +117,6 @@ export default function Navbar() {
                     Women
                 </Link>
             </li>
-
-            {/* !when categories are added */}
-            {/* <DropDownItem 
-            title='Men' 
-            show={showMen} 
-            setShow={handleMen}
-            >
-                <ul>
-                    <li>Runners</li>
-                    <li>Sneakers</li>
-                </ul>
-            </DropDownItem>
-            <DropDownItem 
-            title='Women'
-            show={showWomen} 
-            setShow={handleWomen}
-            >
-                <ul>
-                    <li>Runners</li>
-                    <li>Sneakers</li>
-                </ul>
-            </DropDownItem> */}
         </ul>
         {/* menu list end */}
 

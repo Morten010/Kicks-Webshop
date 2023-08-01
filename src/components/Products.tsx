@@ -34,7 +34,7 @@ export default function Products({products}: ProductProps) {
             >
                 Don’t miss out new drops
             </h2>
-            <Link href="/" className='primary-btn'>
+            <Link href="/search/?orderby=desc" className='primary-btn'>
             SHOP NEW DROPS
             </Link>
         </div>

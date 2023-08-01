@@ -31,7 +31,9 @@ export default function NavDropDown({showMenu, handleClick}:{
             <li
             className='nav-hover'
             >
+                <Link href="/search?orderby=desc">
                 New Drops🔥
+                </Link>
             </li>
             <li
             className='nav-hover'

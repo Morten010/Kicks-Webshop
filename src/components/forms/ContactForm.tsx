@@ -1,7 +1,9 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function ContactForm() {
+    const [deliverOption, setDeliverOption] = useState("standard")
+
   return (
     <form
     className='w-full'
@@ -82,7 +84,8 @@ export default function ContactForm() {
         className='flex flex-col w-full gap-4'
         >
             <div
-            className='bg-white rounded-lg p-4'
+            className={`rounded-lg p-4 transition-colors cursor-pointer select-none ${deliverOption === "standard" ? "bg-white border-2 border-transparent" : "border-2 border-brand-black"}`}
+            onClick={() => setDeliverOption("standard")}
             >
                 <div
                 className='flex justify-between mb-2'
@@ -103,15 +106,16 @@ export default function ContactForm() {
                 </p>
             </div>
             <div
-            className='border-2 border-brand-black rounded-lg p-4'
+            className={`rounded-lg p-4 transition-colors cursor-pointer select-none ${deliverOption === "collect" ? "bg-white border-2 border-transparent" : "border-2 border-brand-black"}`}
+            onClick={() => setDeliverOption("collect")}
             >
                 <div
-                className='flex justify-between mb-2'
+                className="flex justify-between mb-2"
                 >
                     <h3
                     className='text-xl font-semibold'
                     >
-                        Standard Delivery
+                        Collect in store
                     </h3>
                     <p
                     className='font-semibold text-brand-black'
@@ -125,7 +129,7 @@ export default function ContactForm() {
             </div>
             <Link
             href="/"
-            className='secondary-btn w-[50%] text-center'
+            className='secondary-btn w-full md:w-[50%] text-center'
             >
                 Review And Pay
             </Link>

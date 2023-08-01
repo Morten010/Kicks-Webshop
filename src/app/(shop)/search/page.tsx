@@ -22,8 +22,6 @@ export default async function Search({searchParams}: SearchProps) {
   } else if(typeof searchParams.sizes === "object"){
     searchSizes = searchParams.sizes.map(s => {return parseInt(s)})
   }
-  console.log(searchParams);
-  
 
   const count = await db.product.count({
     where: {

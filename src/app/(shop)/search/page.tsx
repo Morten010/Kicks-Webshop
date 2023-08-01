@@ -10,6 +10,7 @@ type SearchProps = {
       name?: string
       gender?: string
       sizes?: string[]
+      orderby?: any
   }
 }
 
@@ -21,6 +22,8 @@ export default async function Search({searchParams}: SearchProps) {
   } else if(typeof searchParams.sizes === "object"){
     searchSizes = searchParams.sizes.map(s => {return parseInt(s)})
   }
+  console.log(searchParams);
+  
 
   const count = await db.product.count({
     where: {
@@ -33,6 +36,9 @@ export default async function Search({searchParams}: SearchProps) {
   
 
   const products = await db.product.findMany({
+    orderBy: {
+      createdAt: searchParams.orderby ? searchParams.orderby : "desc"
+    },
     where: {
       name: {
         contains: searchParams.name
@@ -49,7 +55,7 @@ export default async function Search({searchParams}: SearchProps) {
     include: {
       productImage: true,
       size: true,
-    }
+    },
   })
 
   const sizes = await db.size.groupBy({

@@ -2,6 +2,8 @@ import { HeroProduct, Products } from "@/src/components";
 import { db } from "@/src/lib/db";
 import Image from "next/image";
 
+export const revalidate = 3600;
+
 export default async function Home() {
 
   const products = await db.product.findMany({

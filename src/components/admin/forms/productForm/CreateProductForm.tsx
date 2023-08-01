@@ -4,14 +4,12 @@ import {useEffect, useRef, useState} from 'react'
 import React from 'react'
 import Select from 'react-select'
 import { useUploadThing } from '@/src/app/utils/uploadthing'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { Product, ProductImage, Size } from '@prisma/client'
 
 // functions
 import { productValidation } from '@/src/lib/functions/productValidation'
 import createProduct from '@/src/lib/functions/product/createProduct'
-
-
 
 // components
 import SizeCard from '../SizeCard'

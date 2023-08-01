@@ -99,7 +99,9 @@ export default function Navbar() {
             <li
             className='nav-hover'
             >
-                New Drops🔥
+                <Link href="/search??orderby=desc">
+                    New Drops🔥
+                </Link>
             </li>
             <li
             className='nav-hover'
@@ -116,6 +118,7 @@ export default function Navbar() {
                 </Link>
             </li>
 
+            {/* !when categories are added */}
             {/* <DropDownItem 
             title='Men' 
             show={showMen} 

@@ -27,16 +27,18 @@ export default function ProductCard({product}: ProductProps) {
                 fill
                 src={product.productImage[0].fileUrl}
                 alt="Shoe"
-                className="z-0 object-cover rounded-lg bg-gray-200"
+                className="z-0 object-cover rounded-lg bg-gray-200 "
                 />}
             </div>
         </div>
         {/* image container */}
 
-        <h3>
-            {product.name}
+        <h3
+        className='font-bold text-lg sm:text-xl lg:text-2xl'
+        >
+            {product.name.slice(0, 20)}...
         </h3>
-        <Link href={`/products/${product.slug}`} className='secondary-btn text-sm md:text-base text-center mt-auto'>
+        <Link href={`/products/${product.slug}`} className='secondary-btn text-base md:text-base text-center mt-auto'>
             view product - 
             <span className='text-brand-yellow'> {formatPrice(product.price)}</span>
         </Link>

@@ -3,6 +3,13 @@ import React, { useState, useEffect } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { CgSearch } from 'react-icons/cg'
 import {MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank} from "react-icons/md"
+import Select from 'react-select'
+
+// options for sort by
+const OrderByOptions = [
+    {value: "desc", label: "Newest"},
+    {value: "asc", label: "Oldest"},
+]
 
 export default function SearchForm({count, sizes}: {
     count: number
@@ -11,6 +18,10 @@ export default function SearchForm({count, sizes}: {
     const [name, setName] = useState("")
     const [gender, setGender] = useState("")
     const [size, setSize] = useState<string[]>([])
+    const [orderBy, setOrderBy] = useState({
+        value: "",
+        label: ""
+    })
     const pathname = usePathname();
     const searchParams = useSearchParams()
     const router = useRouter()
@@ -41,6 +52,14 @@ export default function SearchForm({count, sizes}: {
             size.map(s => current.append("sizes", s))
         }
 
+        // set order by from query
+        if(!orderBy.label){
+            current.delete("orderby")
+        }else{
+            current.set("orderby", orderBy.value)
+        }
+
+
         // cast to string
         const search = current.toString();
         const query = search ? `?${search}` : "";
@@ -57,6 +76,16 @@ export default function SearchForm({count, sizes}: {
         setGender(e.target.value)
        }
     }
+
+    
+    type SelectOptionType = { label: string, value: string }
+    //handle sort by change
+    const handleOrderBy = (option: SelectOptionType | null) => {
+        if(option){
+            setOrderBy(option)
+        }
+    }
+
 
     const handleSize = (newSize: number) => {
         if(size.includes(newSize.toString())){
@@ -188,6 +217,22 @@ export default function SearchForm({count, sizes}: {
             ))}
         </div>
         {/* end of sizes */}
+
+        {/* sort by */}
+        <h3
+        className='text-lg font-medium mt-4 mb-2'
+        >
+            Sort by
+        </h3>
+        {OrderByOptions && (
+            <Select 
+            options={OrderByOptions}
+            onChange={handleOrderBy}
+            value={orderBy}
+            className='mb-4 mt-2'
+            />
+        )}
+        {/* end of sort by */}
 
     </form>
   )

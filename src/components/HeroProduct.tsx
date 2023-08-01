@@ -24,6 +24,7 @@ export default function HeroProduct() {
             src="/test-product.jpg"
             alt="Shoe"
             className="z-0 object-cover"
+            priority
             />
         </div>
         {/* background image end */}
@@ -62,6 +63,7 @@ export default function HeroProduct() {
                 src="/test-product.jpg"
                 alt="Shoe"
                 className="z-0 object-cover border border-white rounded"
+                priority
                 />
             </div>
             <div
@@ -72,6 +74,7 @@ export default function HeroProduct() {
                 src="/test-product.jpg"
                 alt="Shoe"
                 className="z-0 object-cover border border-white rounded"
+                priority
                 />
             </div>
         </div>

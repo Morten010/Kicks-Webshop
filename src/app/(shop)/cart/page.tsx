@@ -5,6 +5,7 @@ import { useCart } from '../../store/useCart'
 import CheckoutProductCard from '@/src/components/CheckoutProductCard'
 import { CartProduct } from '@/types'
 
+
 export default function page() {
   const cart = useZustand(useCart, (state) => state)
 
@@ -36,7 +37,7 @@ export default function page() {
             Your Bag
           </h2>
           <p
-          className='mb-4'
+          className='mb-4 mt-2'
           >
             Items in your bag not reserved- check out now to make them yours.
           </p>
@@ -46,6 +47,7 @@ export default function page() {
             {cart && cart.cart.map((p: CartProduct, index: number) => (
               <CheckoutProductCard p={p} index={index} key={index} />
             ))}
+            
           </div>
         </div>
       </div>

@@ -25,3 +25,4 @@ Built with the Next.js App Router, TypeScript, Tailwind, Planetscale, Zustand an
 
 - [ ] Checkout with **Stripe Checkout**
 - [ ] Admin dashboard with stores, products, orders, subscriptions, and payments
+- [ ] React Email

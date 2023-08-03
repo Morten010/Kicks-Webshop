@@ -1,4 +1,4 @@
-# Kicks - A Modern Fullstack Webship
+# Kicks - A Modern Fullstack Webshop
 
 Built with the Next.js App Router, TypeScript, Tailwind, Planetscale, Zustand and Prisma.
 

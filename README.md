@@ -1,6 +1,8 @@
-# Kicks - A Modern Fullstack Webshop
+# [Kicks - A Modern Fullstack Webshop](https://kicks-webshop.vercel.app/)
 
 Built with the Next.js App Router, TypeScript, Tailwind, Planetscale, Zustand and Prisma.
+
+[![Kicks Webshop](./public/screenshots/product.png)](https://kicks-webshop.vercel.app/)
 
 ## Features
 

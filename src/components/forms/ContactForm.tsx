@@ -1,8 +1,40 @@
+import { useCart } from '@/src/app/store/useCart'
+import { useZustand } from '@/src/app/store/useZustand'
+import getStripe from '@/src/lib/getStripe'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
-export default function ContactForm() {
+export default async function ContactForm() {
     const [deliverOption, setDeliverOption] = useState("standard")
+    const cart = await useZustand(useCart, (state) => state)
+
+    const handleCheckout = async () => {
+        const stripe = await getStripe()
+        const cartItems = cart.cart
+        console.log(cartItems);
+        
+
+        if(!cart.cart){
+            console.log("wait");
+            return
+        }
+
+        const response = await fetch("/api/stripe", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(cart.cart)
+        })
+
+        if((response as any).statusCode === 500){
+            return ;
+        }
+
+        const data = await response.json()
+
+        stripe?.redirectToCheckout({sessionId: data.id})
+    }
 
   return (
     <form
@@ -127,12 +159,12 @@ export default function ContactForm() {
                     Enter your address to see when you’ll get your order
                 </p>
             </div>
-            <Link
-            href="/"
+            <button
+            onClick={handleCheckout}
             className='secondary-btn w-full md:w-[50%] text-center'
             >
                 Review And Pay
-            </Link>
+            </button>
         </div>
 
     </form>

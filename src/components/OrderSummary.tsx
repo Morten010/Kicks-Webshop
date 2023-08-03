@@ -26,6 +26,7 @@ export default function OrderSummary({whiteBg = false}: SummaryProps) {
         <div>
         {prop && prop.cart.map((p: CartProduct) => (
             <div
+            key={p.id + "_" + p.size}
             className='flex w-full justify-between gap-2'
             >
               <p>

@@ -49,7 +49,7 @@ export default function ProductAdminCard({product}:ProductProps) {
                 )}
             </div>
             <div
-            className='flex-grow flex flex-col justify-between w-[55%]'
+            className='flex-grow flex flex-col justify-between w-[55%] overflow-hidden overflow-ellipsis'
             >
                 <h3
                 className='font-medium'

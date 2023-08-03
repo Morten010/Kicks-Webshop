@@ -43,7 +43,7 @@ export default function Products({products}: ProductProps) {
         {/* products */}
         <div className='product-grid'>
            {products?.length !== 0 && products?.map(product => (
-               <ProductCard product={product}/>
+               <ProductCard key={product.id} product={product}/>
            ))}
         </div>
         {/* end of products */}

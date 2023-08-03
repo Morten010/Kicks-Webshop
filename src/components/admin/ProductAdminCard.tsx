@@ -30,7 +30,7 @@ export default function ProductAdminCard({product}:ProductProps) {
         <div
         className='flex gap-2'>
             <div
-            className='aspect-square w-[30%] bg-gray-100 rounded-lg relative'
+            className='aspect-square w-[45%] bg-gray-100 rounded-lg relative'
             >
                 {product.productImage.length !== 0 && (
                     <Image 
@@ -49,7 +49,7 @@ export default function ProductAdminCard({product}:ProductProps) {
                 )}
             </div>
             <div
-            className='flex-grow flex flex-col justify-between'
+            className='flex-grow flex flex-col justify-between w-[55%]'
             >
                 <h3
                 className='font-medium'

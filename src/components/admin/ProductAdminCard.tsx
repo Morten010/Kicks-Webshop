@@ -30,7 +30,7 @@ export default function ProductAdminCard({product}:ProductProps) {
         <div
         className='flex gap-2'>
             <div
-            className='aspect-square w-20 bg-gray-100 rounded-lg relative'
+            className='aspect-square w-[30%] bg-gray-100 rounded-lg relative'
             >
                 {product.productImage.length !== 0 && (
                     <Image 

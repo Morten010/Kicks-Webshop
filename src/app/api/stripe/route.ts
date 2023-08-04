@@ -48,7 +48,7 @@ export async function POST(req: Request) {
                 {shipping_rate: "shr_1Nb8qpGJ42b0MBo2Rl6cYZ2o"},
             ],
             line_items: products,
-            success_url: `${req.headers.get("origin")}/?success=true`,
+            success_url: `${req.headers.get("origin")}/cart/success?success=true`,
             cancel_url: `${req.headers.get("origin")}/?canceled=true`,
         }
         // Create Checkout Sessions from body params.

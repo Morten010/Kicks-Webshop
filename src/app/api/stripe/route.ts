@@ -60,9 +60,3 @@ export async function POST(req: Request) {
         return new Response(err.statusCode || 500, {status: err.statusCode || 500,});
     }
 }
-
-// If no default handler is set, it will redirect to 404 page
-export function Default() {
-    // Handle requests that are not GET or POST requests
-    return new Response('Method not allowed!', { status: 405 });
-}

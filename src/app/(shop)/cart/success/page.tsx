@@ -9,7 +9,7 @@ export default async function SuccessPage() {
     const cart = await useZustand(useCart, (s) => s)
     
     useEffect(() => {
-        if(cart){
+        if(cart && cart.cart.length !== 0){
             cart.clearCart()
         }
     }, [cart])

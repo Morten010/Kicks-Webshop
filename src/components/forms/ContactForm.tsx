@@ -1,17 +1,17 @@
 import { useCart } from '@/src/app/store/useCart'
 import { useZustand } from '@/src/app/store/useZustand'
 import getStripe from '@/src/lib/getStripe'
-import Link from 'next/link'
+import { redirect } from 'next/dist/server/api-utils'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 export default async function ContactForm() {
+    const router = useRouter()
     const [deliverOption, setDeliverOption] = useState("standard")
     const cart = await useZustand(useCart, (state) => state)
 
     const handleCheckout = async () => {
         const stripe = await getStripe()
-        const cartItems = cart.cart
-        console.log(cartItems);
         
 
         if(!cart.cart){
@@ -27,13 +27,17 @@ export default async function ContactForm() {
             body: JSON.stringify(cart.cart)
         })
 
+        console.log((response as any).statusCode);
+        
         if((response as any).statusCode === 500){
-            return ;
+            return null;
         }
 
+        console.log(response);
         const data = await response.json()
 
-        stripe?.redirectToCheckout({sessionId: data.id})
+        router.push(data.url)
+
     }
 
   return (

@@ -3,6 +3,7 @@ import '../globals.css'
 import type { Metadata } from 'next'
 import { Rubik } from 'next/font/google'
 import Footer from '@/src/components/Footer'
+import { ToastContainer } from 'react-toastify'
 
 const rubik = Rubik({ subsets: ['latin'] })
 
@@ -20,6 +21,7 @@ export default function RootLayout({
             <Navbar />
             {children}
             <Footer />
+            <ToastContainer />
           </div>
       </body>
     </html>

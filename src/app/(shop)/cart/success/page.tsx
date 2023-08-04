@@ -2,14 +2,18 @@
 import { useCart } from '@/src/app/store/useCart'
 import { useZustand } from '@/src/app/store/useZustand'
 import Link from 'next/link'
-import React from 'react'
+import React, {useEffect} from 'react'
 import {GiConfirmed} from "react-icons/gi"
 
 export default async function SuccessPage() {
     const cart = await useZustand(useCart, (s) => s)
-    if(cart){
-        cart.clearCart()
-    }
+    
+    useEffect(() => {
+        if(cart){
+            cart.clearCart()
+        }
+    }, [cart])
+    
 
   return (
     <div

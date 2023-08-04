@@ -6,14 +6,9 @@ import React, {useEffect} from 'react'
 import {GiConfirmed} from "react-icons/gi"
 
 export default async function SuccessPage() {
-    const cart = await useZustand(useCart, (s) => s)
+    const {clearCart} = useCart()
     
-    useEffect(() => {
-        if(cart && cart.cart.length !== 0){
-            cart.clearCart()
-        }
-    }, [cart])
-    
+    clearCart()
 
   return (
     <div

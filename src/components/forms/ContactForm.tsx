@@ -1,8 +1,44 @@
-import Link from 'next/link'
+import { useCart } from '@/src/app/store/useCart'
+import { useZustand } from '@/src/app/store/useZustand'
+import getStripe from '@/src/lib/getStripe'
+import { redirect } from 'next/dist/server/api-utils'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
-export default function ContactForm() {
+export default async function ContactForm() {
+    const router = useRouter()
     const [deliverOption, setDeliverOption] = useState("standard")
+    const cart = await useZustand(useCart, (state) => state)
+
+    const handleCheckout = async () => {
+        const stripe = await getStripe()
+        
+
+        if(!cart.cart){
+            console.log("wait");
+            return
+        }
+
+        const response = await fetch("/api/stripe", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(cart.cart)
+        })
+
+        console.log((response as any).statusCode);
+        
+        if((response as any).statusCode === 500){
+            return null;
+        }
+
+        console.log(response);
+        const data = await response.json()
+
+        router.push(data.url)
+
+    }
 
   return (
     <form
@@ -127,12 +163,12 @@ export default function ContactForm() {
                     Enter your address to see when you’ll get your order
                 </p>
             </div>
-            <Link
-            href="/"
+            <button
+            onClick={handleCheckout}
             className='secondary-btn w-full md:w-[50%] text-center'
             >
                 Review And Pay
-            </Link>
+            </button>
         </div>
 
     </form>

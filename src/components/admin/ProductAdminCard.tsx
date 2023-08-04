@@ -32,7 +32,7 @@ export default function ProductAdminCard({product}:ProductProps) {
             <div
             className='aspect-square w-[45%] bg-gray-100 rounded-lg relative'
             >
-                {product.productImage.length !== 0 && (
+             W   {product.productImage.length !== 0 && (
                     <Image 
                     src={product.productImage[0].fileUrl}
                     fill

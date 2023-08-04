@@ -3,7 +3,7 @@ import { CartProduct } from '@/types';
 import Stripe from 'stripe';
 import { headers } from 'next/headers'
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
     apiVersion: "2022-11-15",
     typescript: true,
   })

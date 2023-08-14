@@ -1,7 +1,6 @@
 import { useCart } from '@/src/app/store/useCart'
 import { useZustand } from '@/src/app/store/useZustand'
 import getStripe from '@/src/lib/getStripe'
-import { redirect } from 'next/dist/server/api-utils'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
@@ -35,6 +34,10 @@ export default async function ContactForm() {
 
         console.log(response);
         const data = await response.json()
+
+        if(!data.url){
+            return null
+        }
 
         router.push(data.url)
 
@@ -170,7 +173,6 @@ export default async function ContactForm() {
                 Review And Pay
             </button>
         </div>
-
     </form>
   )
 }

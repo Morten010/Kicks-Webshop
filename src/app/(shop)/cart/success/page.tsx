@@ -1,14 +1,18 @@
 "use client"
 import { useCart } from '@/src/app/store/useCart'
-import { useZustand } from '@/src/app/store/useZustand'
 import Link from 'next/link'
 import React, {useEffect} from 'react'
 import {GiConfirmed} from "react-icons/gi"
 
 export default async function SuccessPage() {
-    const {clearCart} = useCart()
+    const {cart ,clearCart} = useCart()
     
-    clearCart()
+    useEffect(() => {
+        if(cart){
+            clearCart()
+        }
+    }, [])
+    
 
   return (
     <div

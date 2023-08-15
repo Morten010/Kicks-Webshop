@@ -2,12 +2,22 @@
 import React, { useEffect, useState } from 'react'
 import { signOut, useSession } from "next-auth/react"
 
-const initialUser = {
+const initialUser : {
+  id?: any;
+  firstName?: any;
+  lastName?: string | undefined;
+  gender?: string | undefined;
+  email?: string | undefined;
+  role?: any;
+} = {
   email: "",
   firstName: "",
   lastName: "",
   gender: "",
-}
+  role: ''
+} 
+
+
 
 export default function Profile() {
   const [user, setUser] = useState(initialUser)

@@ -1,7 +1,10 @@
-import { authOptions } from '@/src/app/api/auth/[...nextauth]/route';
 import { db } from '@/src/lib/db'
-import { getServerSession } from 'next-auth';
 import React from 'react'
+import { DataTable } from './data-table';
+import { columns } from './columns';
+import { formatPrice } from '@/src/app/utils/formatPrice';
+import { TableOrder } from './columns';
+
 export const revalidate = 0
 
 export default async function Orders() {
@@ -9,22 +12,39 @@ export default async function Orders() {
     orderBy: {
       createdAt: "asc"
     },
+    select: {
+      id: true,
+      total: true,
+      orderStatus: true,
+      email: true,
+      createdAt: true,
+    },
     take: 30,
   })
-  console.log(orders);
-  const user = await getServerSession(authOptions)
-  console.log(user);
   
+  const sortedOrders: TableOrder[] = orders.map(item => {
+    
+    return {
+      id: item.id,
+      total: formatPrice(item.total),
+      status: item.orderStatus,
+      email: item.email,
+      date: new Date(item.createdAt).toDateString(),
+    }
+  })
+
   
   return (
     <div>
-      <h1>orders</h1>
-      <div
-      className='flex flex-col gap-2 bg-white'
+      <h1
+      className='text-xl font-semibold'
       >
-        {orders && orders.map(order => (
-          <p key={order.id}>{order.orderStatus}</p>
-        ))}
+          Orders
+      </h1>
+      <div
+      className='flex flex-col mt-5'
+      >
+        <DataTable data={sortedOrders} columns={columns} />
       </div>
     </div>
   )

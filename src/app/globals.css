@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .nav-hover{
     @apply transition-colors cursor-pointer duration-200 hover:text-[#8F8C91]
 }

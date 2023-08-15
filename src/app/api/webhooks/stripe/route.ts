@@ -1,5 +1,6 @@
 import { db } from '@/src/lib/db'
 import { stripe } from '@/src/lib/stripe'
+import { cartItem } from '@prisma/client'
 import { headers } from 'next/headers'
 import type Stripe from "stripe"
 
@@ -58,22 +59,37 @@ export async function POST(req: Request, res: Response) {
       console.log(data.amount_total);
       
       console.log(data);
+      console.log(customer.metadata.cart);
+      
+      const cart = JSON.parse(customer.metadata.cart)
+      const products = await Promise.all(cart.map(async (cartItem: {id: number, size: number, quantity: number}) => {
+        const product = await db.product.findUnique({
+          where: {
+            id: cartItem.id
+          }
+        })
 
-      console.log(JSON.parse(customer.metadata.cart));
+        return {
+          name: product?.name,
+          quantity: cartItem.quantity,
+          size: cartItem.size
+        }
+      }))
+
       
       //Create order
       const newOrder = await db.order.create({
           data: {
               addressId: 1,
               email: "itismorten@outlook.com",
-              name: data.shipping.name,
-              userId: JSON.parse(customer.metadata.userId),
+              name: data.shipping.name ? data.shipping.name : "Unnamed",
+              userId: customer.metadata.userId,
               stripePaymentIntentId: data.id,
               stripePaymentIntentStatus: data.status,
               orderStatus: data.status,
               orderItems: {
                   createMany: {
-                      data: JSON.parse(customer.metadata.cart)
+                      data: products
                   }
               },
               total: data.amount

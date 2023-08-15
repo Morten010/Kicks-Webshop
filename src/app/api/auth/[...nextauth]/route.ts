@@ -71,7 +71,8 @@ export const authOptions: NextAuthOptions  = {
         
         async session({session, token, user}) {
             // console.log("session callback", {session, token, user});
-            // pass in user id and adress to session
+            // pass in user id and address to session
+            
             return {
                 ...session,
                 user: {

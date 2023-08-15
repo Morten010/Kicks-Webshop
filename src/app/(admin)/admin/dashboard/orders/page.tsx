@@ -1,4 +1,6 @@
+import { authOptions } from '@/src/app/api/auth/[...nextauth]/route';
 import { db } from '@/src/lib/db'
+import { getServerSession } from 'next-auth';
 import React from 'react'
 export const revalidate = 0
 
@@ -10,6 +12,9 @@ export default async function Orders() {
     take: 30,
   })
   console.log(orders);
+  const user = await getServerSession(authOptions)
+  console.log(user);
+  
   
   return (
     <div>
@@ -18,7 +23,7 @@ export default async function Orders() {
       className='flex flex-col gap-2 bg-white'
       >
         {orders && orders.map(order => (
-          <p>{order.orderStatus}</p>
+          <p key={order.id}>{order.orderStatus}</p>
         ))}
       </div>
     </div>

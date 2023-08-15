@@ -32,41 +32,56 @@ export async function POST(req: Request, res: Response) {
 
       break
     case 'payment_intent.succeeded':
-      const paymentIntentSucceeded = event.data.object;
-      console.log(paymentIntentSucceeded);
-      // Then define and call a function to handle the event payment_intent.succeeded
+      const data: any = event.data.object;
+      
+      //Create shipping address
       // @ts-ignore
-      const ship = paymentIntentSucceeded.shipping.address
+      const ship = data.shipping.address
+      console.log("SHIPPING: ", ship);
+      
       const createAddress = await db.address.create({
         data: {
           city: ship.city,
           country: ship.country,
-          line1: ship.line1,
-          line2: ship.line2,
-          postalcode: ship.postalcode,
+          line1: ship.line1 ,
+          line2: ship.line2 ? ship.line2 === null ? undefined : ship.line2 : undefined,
+          postalcode: ship.postal_code,
           state: ship.state
         }
       })
 
-      const updateOrder = await db.order.update({
-        where: {
-          // @ts-ignore
-          id: paymentIntentSucceeded.id
-        },
-        data: {
-          // @ts-ignore
-          addressId: createAddress.id,
-          orderStatus: "Paid",
-          // @ts-ignore
-          email: paymentIntentSucceeded.receipt_email,
-          // @ts-ignore
-          name: paymentIntentSucceeded.shipping.name,
-          // @ts-ignore
-        }
+      //get customer
+      const customer = await stripe.customers.retrieve(data.customer).then((customer) => {
+        console.log(customer);
+        return customer as any
+      }).catch(err => console.log(err))
+      console.log(data.amount_total);
+      
+      console.log(data);
+
+      console.log(JSON.parse(customer.metadata.cart));
+      
+      //Create order
+      const newOrder = await db.order.create({
+          data: {
+              addressId: 1,
+              email: "itismorten@outlook.com",
+              name: data.shipping.name,
+              userId: JSON.parse(customer.metadata.userId),
+              stripePaymentIntentId: data.id,
+              stripePaymentIntentStatus: data.status,
+              orderStatus: data.status,
+              orderItems: {
+                  createMany: {
+                      data: JSON.parse(customer.metadata.cart)
+                  }
+              },
+              total: data.amount
+          }
       })
-
-      console.log("ORDER UPDATED: ", updateOrder);
-
+      console.log(newOrder);
+      
+      
       break;
     // ... handle other event types
     default:

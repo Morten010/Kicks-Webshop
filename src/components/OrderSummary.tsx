@@ -7,6 +7,7 @@ import { useZustand } from '../app/store/useZustand'
 import Link from 'next/link'
 import getStripe from '../lib/getStripe'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 
 type SummaryProps = {
   whiteBg?: boolean
@@ -16,6 +17,7 @@ export default function OrderSummary({whiteBg = false}: SummaryProps) {
   const cart = useZustand(useCart, (state) => state)
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const user = useSession()
 
   const handleCheckout = async () => {
     setLoading(true)
@@ -31,7 +33,10 @@ export default function OrderSummary({whiteBg = false}: SummaryProps) {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(cart.cart)
+        body: JSON.stringify({
+          cart: cart.cart,
+          userId: user.data?.user.id
+        })
     })
 
     if((response as any).statusCode === 500){
@@ -94,7 +99,7 @@ export default function OrderSummary({whiteBg = false}: SummaryProps) {
           disabled
           className='secondary-btn w-full text-center opacity-80'
           >
-              Loading...
+              Redirecting...
           </button>
         )}
         

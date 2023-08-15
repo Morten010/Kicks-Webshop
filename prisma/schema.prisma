@@ -117,14 +117,13 @@ model ProductImage {
 // orders and related
 model Order {
   id                        Int     @id @default(autoincrement())
-  userId                    String?
-  total                     Decimal @db.Decimal(10, 2)
-  stripePaymentIntentId     String  @db.VarChar(191)
+  userId                    String? @db.VarChar(256)
+  total                     Int 
+  stripePaymentIntentId     String  @db.VarChar(191) 
   stripePaymentIntentStatus String  @db.VarChar(191)
   name                      String
   email                     String
   addressId                 Int
-  checkoutUrl               String? @db.VarChar(500)
 
   orderItems OrderItems[]
 
@@ -146,9 +145,9 @@ model OrderItems {
 model address {
   id         Int      @id @default(autoincrement())
   line1      String   @db.VarChar(191)
-  line2      String   @db.VarChar(191)
+  line2      String?   @db.VarChar(191)
   city       String   @db.VarChar(191)
-  state      String   @db.VarChar(191)
+  state      String?   @db.VarChar(191)
   postalcode String   @db.VarChar(191)
   country    String   @db.VarChar(191)
   createdAt  DateTime @default(now())

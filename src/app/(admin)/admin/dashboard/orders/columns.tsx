@@ -7,7 +7,7 @@ export type TableOrder = {
     total: string | null
     status: string | null
     email: string | null
-    date: string | null
+    date: string
 }
 
 export const columns: ColumnDef<TableOrder>[] = [

@@ -8,6 +8,9 @@ import {AiOutlineHeart} from "react-icons/ai"
 import { formatPrice } from '../app/utils/formatPrice'
 import { useCart } from '../app/store/useCart'
 import ProductCarousel from './productCarousel'
+import { useZustand } from '../app/store/useZustand'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 type CartItem = Product & {
     productImage?: ProductImage[]
@@ -22,6 +25,10 @@ type ProductProps = {
 }
 
 export default function ProductView({product}: ProductProps) {
+    const cart = useZustand(useCart, (state) => state)
+    const user = useSession()
+    const router = useRouter()
+    
     const [size, setSize] = useState<Number>()
     const [msg, setMsg] = useState("")
     const {addProduct} = useCart()
@@ -30,7 +37,7 @@ export default function ProductView({product}: ProductProps) {
         setSize(size)
     }
 
-    const handleCart = (item: CartItem) => {
+    const handleCart = () => {
         setMsg("")
         if(!size){
             setMsg("Pick a size")
@@ -40,6 +47,51 @@ export default function ProductView({product}: ProductProps) {
         const cartProduct = {...product, size: size}
 
         addProduct(cartProduct)
+    }
+    if(cart){
+        console.log(cart.cart);
+    }
+    
+    const handleBuy = async () => {
+        if(!size){
+            return 
+        }
+
+        const response = await fetch("/api/stripe", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              cart: [{
+                amount: 1,
+                brandId: product?.brandId,
+                id: product?.id,
+                name: product?.name,
+                slug: product?.slug,
+                desc: product?.desc,
+                price: product?.price,
+                gender: product?.gender,
+                createdAt: product?.createdAt,
+                productImage: product?.productImage,
+                size: size
+              }],
+              userId: user.data?.user.id
+            })
+        })
+
+        if((response as any).statusCode === 500){
+            return null;
+        }
+    
+        console.log(response);
+        const data = await response.json()
+    
+        if(!data.url){
+            return null
+        }
+    
+        router.push(data.url)
     }
     
   return (
@@ -118,7 +170,7 @@ export default function ProductView({product}: ProductProps) {
                 className='flex gap-1 mt-4'
                 >
                     {product && <button className="secondary-btn w-full"
-                    onClick={() => handleCart(product)}
+                    onClick={() => handleCart()}
                     >
                         ADD TO CART
                     </button>}
@@ -126,7 +178,10 @@ export default function ProductView({product}: ProductProps) {
                         <AiOutlineHeart />
                     </button>
                 </div>
-                <button className="primary-btn w-full">
+                <button 
+                className="primary-btn w-full"
+                onClick={handleBuy}
+                >
                         BUY IT NOW
                 </button>
             </div>

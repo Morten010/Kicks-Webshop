@@ -180,3 +180,5 @@ model cartItem {
 
   user Cart @relation(fields: [cartId], references: [id], onDelete: Cascade)
 }
+
+// end of cart

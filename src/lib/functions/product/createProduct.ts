@@ -29,7 +29,7 @@ export default async function createProduct(product: ProductProps, images:Images
     const result = await db.product.create({
         data: {
             name: product.name,
-            slug: product.name.replace(/\s+/g, '-').replaceAll("/", "_").replaceAll('"', "").toLowerCase(),
+            slug: product.name.replace(/\s+/g, '-').replaceAll("/", "_").replaceAll('"', "").replaceAll("'", "").toLowerCase(),
             desc: product.desc,
             price: product.price,
             brandId: product.brandId,

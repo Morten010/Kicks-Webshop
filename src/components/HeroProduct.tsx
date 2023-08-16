@@ -1,12 +1,13 @@
 "use client"
 import Image from 'next/image'
+import Link from 'next/link'
 import React, { useState } from 'react'
 
 //images
 
 
 export default function HeroProduct() {
-    const [images, setImages] = useState(["/hero/1.jpg", "/hero/2.jpg"])
+    const images = ["/hero/1.jpg", "/hero/2.jpg"]
     const [choosenImages, setChoosenImages] = useState("/hero/1.jpg")
   return (
     <div 
@@ -48,11 +49,12 @@ export default function HeroProduct() {
             >
                 Nike introducing the new air max for everyone's comfort
             </p>
-            <button
-            className='primary-btn mt-2'
+            <Link
+            href='/products/nike-air-max-1-tropical-floral-print'
+            className='primary-btn mt-2 inline-block'
             >
                 Shop Now
-            </button>
+            </Link>
         </div>
         {/* title and subtitle end */}
 
@@ -62,7 +64,7 @@ export default function HeroProduct() {
         >
             {images.map(image => (
                 <div
-                className='relative aspect-square h-16 w-16 lg:w-24 lg:h-24 md:w-20 md:h-20'
+                className='relative aspect-square h-16 w-16 lg:w-24 lg:h-24 md:w-20 md:h-20 hover:opacity-80 transition-opacity'
                 onClick={() => setChoosenImages(image)}
                 >
                     <Image

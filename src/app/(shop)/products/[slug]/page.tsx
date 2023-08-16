@@ -15,7 +15,6 @@ export default async function Product({params}: ProductDetailsProps) {
         size: true
       }
     })
-    console.log(product);
     
 
   return (

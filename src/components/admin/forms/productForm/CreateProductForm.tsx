@@ -190,16 +190,19 @@ export default function CreateProductForm({edit = false, product}: {
         toast.success("The product was successfully created🥳!")
         setLoading(false)
 
-        // ! clean up form
-        // title.current!.value = "";
-        // desc.current!.value = "";
-        // price.current!.value = "";
-        // setSizes([{
-        //     id: 1,
-        //     size: "45",
-        //     quantity: "0",
-        // }]);
-        // setSelectedImages([])
+        title.current!.value = "";
+        desc.current!.value = "";
+        price.current!.value = "";
+        setSizes([
+            { id: 1, size: "40", quantity: (Math.floor(Math.random() * 12) + 5).toString() },
+            { id: 2, size: "41", quantity: (Math.floor(Math.random() * 12) + 5).toString() },
+            { id: 3, size: "42", quantity: (Math.floor(Math.random() * 12) + 5).toString() },
+            { id: 4, size: "43", quantity: (Math.floor(Math.random() * 12) + 5).toString() },
+            { id: 5, size: "44", quantity: (Math.floor(Math.random() * 12) + 5).toString() },
+            { id: 6, size: "45", quantity: (Math.floor(Math.random() * 12) + 5).toString() },
+            { id: 7, size: "46", quantity: (Math.floor(Math.random() * 12) + 5).toString() }
+        ]);
+        setSelectedImages([])
     }
 
     const closeModal = () => {
@@ -485,7 +488,7 @@ export default function CreateProductForm({edit = false, product}: {
 
   return (
     <form
-    className={`mt-4 flex flex-col md:flex-row gap-4 bg-white rounded-xl p-4 relative ${!options[0]!.value ? "overflow-hidden h-[88vh]" : ""}`}
+    className={`mt-4 flex flex-col md:flex-row gap-4 bg-white rounded-xl p-4 relative ${!options[0]!.value ? "overflow-hidden h-[85vh]" : ""}`}
     onSubmit={(e) => {e.preventDefault()}}
     >
         {!options[0]!.value && (

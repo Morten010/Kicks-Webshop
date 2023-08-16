@@ -4,6 +4,8 @@ import Link from 'next/link'
 import React from 'react'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
 
+export const revalidate = 0
+
 export default async function Products() {
 
   // get all products

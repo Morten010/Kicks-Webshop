@@ -5,9 +5,14 @@ import { Product, ProductImage, } from '@prisma/client'
 import { formatPrice } from '../app/utils/formatPrice'
 
 type ProductProps = {
-    product: Product & {
-        productImage?: ProductImage[]
-    }
+    product: {
+        id: number
+        name: string
+        slug: string
+        price: number
+        productImage: ProductImage[]
+        createdAt: Date
+      }
 }
 
 export default function ProductCard({product}: ProductProps) {

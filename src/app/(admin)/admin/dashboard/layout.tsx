@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth'
 import React from 'react'
 import { redirect } from 'next/navigation';
 import { ToastContainer } from 'react-toastify';
+import TopAdminNav from '@/src/components/admin/navbar/TopAdminNav';
 
 export default async function DashboardLayout({children}: {children: React.ReactNode}) {
   const session = await getServerSession(authOptions)
@@ -26,10 +27,19 @@ export default async function DashboardLayout({children}: {children: React.React
     >
       <AdminNavbar />
       <div
-      className='p-4 flex-grow item max-h-screen overflow-x-hidden'
+      className='flex-grow item max-h-screen overflow-x-hidden'
       >
-        {children}
-        <ToastContainer />
+       <div
+       className='flex flex-col'
+       >
+          <TopAdminNav />
+          <div
+          className='p-4'
+          >
+            {children}
+            <ToastContainer />
+          </div>
+       </div>
       </div>
     </main>
   )

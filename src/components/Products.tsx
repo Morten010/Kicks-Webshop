@@ -10,12 +10,9 @@ type ProductProps = {
       id: number
       name: string
       slug: string
-      desc: string
       price: number
-      brandId: number
-      gender: string
-      createdAt: Date
       productImage: ProductImage[]
+      createdAt: Date
     }[]
 }
 

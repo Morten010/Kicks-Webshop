@@ -1,6 +1,8 @@
-"use client"
-import React, { useEffect, useState } from 'react'
-import { signOut, useSession } from "next-auth/react"
+import { db } from '@/src/lib/db';
+import { Order} from '@prisma/client'
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../../api/auth/[...nextauth]/route';
+import SignoutButton from '@/src/components/profile/SignoutButton';
 
 const initialUser : {
   id?: any;
@@ -19,17 +21,23 @@ const initialUser : {
 
 
 
-export default function Profile() {
-  const [user, setUser] = useState(initialUser)
-  const { data, status, update } = useSession()
 
-  useEffect(() => {
-    if(data && data.user){
-      setUser(data.user)
-      console.log(data);
-      
+export default async function Profile() {
+  const session = await getServerSession(authOptions);
+  const user = session?.user!;
+
+
+  const orders = await db.order.findMany({
+    where: {
+      userId: user.id
+    },
+    include: {
+      orderItems: true
     }
-  }, [data])
+  })
+
+  console.log(orders);
+  
   
   return (
     <div
@@ -47,11 +55,11 @@ export default function Profile() {
         <div
         className='mt-4'
         >
-          <h2
+          <h3
           className='font-semibold text-lg'
           >
             Email
-          </h2>
+          </h3>
           <p>
             {user.email}
           </p>
@@ -64,11 +72,11 @@ export default function Profile() {
           <div
           className='w-1/3'
           >
-            <h2
+            <h3
             className='font-semibold text-lg'
             >
               First Name
-            </h2>
+            </h3>
             <p>
               {user.firstName ? user.firstName : "none found"}
             </p>
@@ -76,11 +84,11 @@ export default function Profile() {
           <div
           className='w-1/3'
           >
-            <h2
+            <h3
             className='font-semibold text-lg'
             >
               Last Name
-            </h2>
+            </h3>
             <p>
               {user.lastName ? user.lastName : "none found"}
             </p>
@@ -88,11 +96,11 @@ export default function Profile() {
           <div
           className='w-1/3'
           >
-            <h2
+            <h3
             className='font-semibold text-lg'
             >
               gender
-            </h2>
+            </h3>
             <p>
               {user.gender ? user.gender : "None Found"}
             </p>
@@ -100,15 +108,21 @@ export default function Profile() {
         </div>
 
       </div>}
+
+      <div>
+        <h2
+        className='font-semibold text-2xl mb-2'
+        >
+          orders
+        </h2>
+        <div>
+          {/* orders here */}
+        </div>
+      </div>
       {/* end of profile details */}
 
       {/* signout button */}
-      <button
-      className='secondary-btn mt-4'
-      onClick={() => signOut()}
-      >
-        Sign Out
-      </button>
+      <SignoutButton />
       {/* end of signout button */}
     </div>
   )

@@ -10,11 +10,15 @@ export default async function Home() {
     orderBy: {
       createdAt: "desc"
     },
-    include: {
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      price: true,
       productImage: true,
+      createdAt: true,
     },
     take: 4,
-
   })
       
   return (

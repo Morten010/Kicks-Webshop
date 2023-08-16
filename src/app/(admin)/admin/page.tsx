@@ -14,17 +14,20 @@ export default async function AdminLogin() {
 
   return (
     <main
-    className="max-w-screen-xl m-auto w-full h-screen flex"
+    className=" m-auto w-full h-screen flex"
     >
-      <aside
-      className="w-2/4 h-full relative"
-      >
+      <div className="absolute w-2/4 h-full left-0">
         <Image 
         src="/admin-assets/admin-login.jpg"
         alt="admin login"
         className="object-cover"
         fill
         />
+      </div>
+      <aside
+      className="w-2/4 h-screen max-h-screen relative"
+      >
+        
       </aside>
       <div 
       className="w-2/4 h-full grid place-content-center p-4"
@@ -41,7 +44,15 @@ export default async function AdminLogin() {
           Forgot your Password?
         </Link>
 
-        <LoginForm redirect={"/admin/dashboard"}/>
+        <div
+        className="grid place-content-center"
+        >
+          <div
+          className="max-w-[550px]"
+          >
+            <LoginForm redirect={"/admin/dashboard"}/>
+          </div>
+        </div>
       </div>
     </main>
   )

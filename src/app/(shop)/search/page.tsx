@@ -1,9 +1,7 @@
 import { ProductCard } from '@/src/components';
-import SearchForm from '@/src/components/forms/SearchForm';
 import SearchFormContainer from '@/src/components/forms/SearchFormContainer';
 import { db } from '@/src/lib/db'
 import React from 'react'
-import {IoSettingsSharp} from "react-icons/io5"
 
 type SearchProps = {
   searchParams: {

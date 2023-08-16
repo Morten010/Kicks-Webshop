@@ -3,7 +3,7 @@
 import {useEffect, useRef, useState} from 'react'
 import React from 'react'
 import Select from 'react-select'
-import { useUploadThing } from '@/src/app/utils/uploadthing'
+import { uploadFiles, useUploadThing } from '@/src/app/utils/uploadthing'
 import { toast } from 'react-toastify'
 import { Product, ProductImage, Size } from '@prisma/client'
 
@@ -144,7 +144,15 @@ export default function CreateProductForm({edit = false, product}: {
 
         //format image blob into image file
         const data = await convertFile(selectedImages)
-        const images = await startUpload(data)
+        console.log(data);
+        const imagesPromises = data.map(async (item) => {
+            const uploaded = await startUpload([item])
+           if(uploaded){
+                return uploaded[0]
+           }
+        })
+        const images = await Promise.all(imagesPromises)
+        console.log("Images: ", images);
         
         // if image upload went wrong
         if(!images){

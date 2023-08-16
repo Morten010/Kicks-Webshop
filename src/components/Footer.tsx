@@ -136,7 +136,7 @@ export default function Footer() {
                     <ul>
                         <li>
                             <Link 
-                            href="/"
+                            href="/company/about"
                             className=' transition-opacity  hover:opacity-80'
                             >
                                 About

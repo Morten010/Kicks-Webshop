@@ -42,7 +42,6 @@ export async function POST(req: Request) {
                 userId: userId,
                 total: total,
                 orderStatus: "Processing",
-                
             }
         })
 

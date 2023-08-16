@@ -3,11 +3,11 @@
 import { ColumnDef } from "@tanstack/react-table"
 
 export type TableOrder = {
-    id: string
-    total: string
-    status: string
-    email: string
-    date: string
+    id: string | null
+    total: string | null
+    status: string | null
+    email: string | null
+    date: string | null
 }
 
 export const columns: ColumnDef<TableOrder>[] = [

@@ -26,7 +26,7 @@ export default async function Orders() {
     
     return {
       id: "#" + item.id,
-      total: formatPrice(item.total!),
+      total: formatPrice(item.total ? item.total : 100),
       status: item.orderStatus,
       email: item.email,
       date: new Date(item.createdAt).toDateString(),

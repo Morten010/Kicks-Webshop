@@ -4,8 +4,6 @@ import { useCart } from '../app/store/useCart'
 import { formatPrice } from '../app/utils/formatPrice'
 import { CartProduct } from '@/types'
 import { useZustand } from '../app/store/useZustand'
-import Link from 'next/link'
-import getStripe from '../lib/getStripe'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 
@@ -19,6 +17,9 @@ export default function OrderSummary({whiteBg = false}: SummaryProps) {
   const [loading, setLoading] = useState(false)
   const user = useSession()
 
+  if(cart){
+    console.log(cart.cart);
+  }
   const handleCheckout = async () => {
     setLoading(true)
 
@@ -28,6 +29,7 @@ export default function OrderSummary({whiteBg = false}: SummaryProps) {
       return
     }
 
+    
     const response = await fetch("/api/stripe", {
         method: "POST",
         headers: {

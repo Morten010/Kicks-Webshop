@@ -27,16 +27,16 @@ export default async function Profile() {
   const user = session?.user!;
 
 
-  const orders = await db.order.findMany({
-    where: {
-      userId: user.id
-    },
-    include: {
-      orderItems: true
-    }
-  })
+  // const orders = await db.order.findMany({
+  //   where: {
+  //     userId: user.id
+  //   },
+  //   include: {
+  //     orderItems: true
+  //   }
+  // })
 
-  console.log(orders);
+  // console.log(orders);
   
   
   return (

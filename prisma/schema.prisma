@@ -116,21 +116,20 @@ model ProductImage {
 
 // orders and related
 model Order {
-  id                        Int     @id @default(autoincrement())
-  userId                    String? @db.VarChar(256)
-  total                     Int 
-  stripePaymentIntentId     String  @db.VarChar(191) 
-  stripePaymentIntentStatus String  @db.VarChar(191)
-  name                      String?
-  email                     String
-  addressId                 Int
+  id          Int     @id @default(autoincrement())
+  userId      String? @db.VarChar(256)
+  total       Int?
+  name        String?
+  email       String?
+  addressId   Int?
+  orderStatus String  @default("Started...")
+  phone       String?
 
   orderItems OrderItems[]
 
   user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  orderStatus String   @default("Processing")
-  createdAt   DateTime @default(now())
+  createdAt DateTime @default(now())
 }
 
 model OrderItems {
@@ -138,16 +137,17 @@ model OrderItems {
   name     String
   size     Int
   quantity Int
+  orderId  Int 
 
-  order Order @relation(fields: [id], references: [id], onDelete: Cascade)
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
 }
 
 model address {
   id         Int      @id @default(autoincrement())
   line1      String   @db.VarChar(191)
-  line2      String?   @db.VarChar(191)
+  line2      String?  @db.VarChar(191)
   city       String   @db.VarChar(191)
-  state      String?   @db.VarChar(191)
+  state      String?  @db.VarChar(191)
   postalcode String   @db.VarChar(191)
   country    String   @db.VarChar(191)
   createdAt  DateTime @default(now())

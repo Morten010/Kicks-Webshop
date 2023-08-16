@@ -2,7 +2,7 @@ import { db } from '@/src/lib/db'
 import { stripe } from '@/src/lib/stripe'
 import { cartItem } from '@prisma/client'
 import { headers } from 'next/headers'
-import type Stripe from "stripe"
+import Stripe from "stripe"
 
 export async function POST(req: Request, res: Response) {
   const body = await req.text()
@@ -27,13 +27,13 @@ export async function POST(req: Request, res: Response) {
   }
 
   // Handle The event
+  const data: any = event.data.object;
   switch (event.type) {
     case "checkout.session.completed": 
       
 
       break
     case 'payment_intent.succeeded':
-      const data: any = event.data.object;
       
       //Create shipping address
       // @ts-ignore
@@ -50,56 +50,70 @@ export async function POST(req: Request, res: Response) {
           state: ship.state
         }
       })
-
+      
       //get customer
-      const customer = await stripe.customers.retrieve(data.customer).then((customer) => {
+      const customer = await stripe.customers.retrieve(data.customer)
+        .then((customer) => {
         console.log(customer);
         return customer as any
-      }).catch(err => console.log(err))
-      console.log(data.amount_total);
+      }).catch(err => console.log(err));
       
+      console.log(customer.metadata.orderId);
+
+      console.log(data.phone, data.email,);
       console.log(data);
-      console.log(customer.metadata.cart);
       
-      const cart = JSON.parse(customer.metadata.cart)
-      const products = await Promise.all(cart.map(async (cartItem: {id: number, size: number, quantity: number}) => {
-        const product = await db.product.findUnique({
-          where: {
-            id: cartItem.id
-          }
-        })
-
-        return {
-          name: product?.name,
-          quantity: cartItem.quantity,
-          size: cartItem.size
+      const updateOrder = await db.order.update({
+        where: {
+          id: parseInt(customer.metadata.orderId)
+        },
+        data: {
+          orderStatus: "Paid",
+          addressId: createAddress.id,
+          name: data.shipping.name,
+          email: customer.email,
+          // phone: customer.phone
         }
-      }))
-
-      
-      //Create order
-      const newOrder = await db.order.create({
-          data: {
-              addressId: 1,
-              email: "itismorten@outlook.com",
-              name: data.shipping.name ? data.shipping.name : "Unnamed",
-              userId: customer.metadata.userId,
-              stripePaymentIntentId: data.id,
-              stripePaymentIntentStatus: data.status,
-              orderStatus: data.status,
-              orderItems: {
-                  createMany: {
-                      data: products
-                  }
-              },
-              total: data.amount
-          }
       })
-      console.log(newOrder);
       
+      console.log(updateOrder);
       
       break;
     // ... handle other event types
+    case 'charge.succeeded':
+
+      const customerCs = await stripe.customers.retrieve(data.customer)
+        .then((customer) => {
+        console.log(customer);
+        return customer as any
+      }).catch(err => console.log(err));
+
+      const updateOrderCs = await db.order.update({
+        where: {
+          id: parseInt(customerCs.metadata.orderId)
+        },
+        data: {
+          orderStatus: "Paid",
+        }
+      })
+
+      break
+    case "checkout.session.expired":
+      const customerEx = await stripe.customers.retrieve(data.customer)
+        .then((customer) => {
+        return customer as any
+      }).catch(err => console.log(err));
+
+      const updateOrderEx = await db.order.delete({
+        where: {
+          id: parseInt(customerEx.metadata.orderId)
+        }
+      })   
+      console.log("Deleted order: #", customerEx.metadata.orderId);
+      const deleteCustomer = await stripe.customers.del(data.customer)
+      console.log("Deleted customer: ", deleteCustomer.deleted);
+         
+      break
     default:
       console.log(`Unhandled event type ${event.type}`);
   }

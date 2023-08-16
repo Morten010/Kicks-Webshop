@@ -20,15 +20,42 @@ export async function POST(req: Request) {
     const headersList = headers()
     const body: StripeBodyProps = await req.json()
     try {
-        // Create Checkout Sessions from body params.
-        const productsPromises = body.cart.map(async (p: CartProduct) => {
-            const img = p.productImage[0].fileUrl;
+        //get session user
+        const user = await getServerSession(authOptions)
+        
+        //create order for checkout
+        const cart = body.cart
+        const newCart = cart.map(c => {
+            return {
+                name: c.name ,
+                quantity: c.amount,
+                size: c.size,
+            }
+        })
+        const userId = user?.user.id ? user?.user.id : undefined
+        let total = 0
+        cart.map(c => {
+            total = total + c.price
+        })
+        const newOrder = await db.order.create({
+            data: {
+                userId: userId,
+                total: total,
+                orderStatus: "Processing",
+                
+            }
+        })
 
-            const product = await db.product.findUnique({
-                where: {
-                    id: p.id,
-                },
-            })
+        //create customer
+        const customer = await stripe.customers.create({
+            metadata: {
+                orderId: newOrder.id
+            }
+        })
+
+        // Create products to input to cart
+        const productsPromises = cart.map((p: CartProduct) => {
+            const img = p.productImage[0].fileUrl;
             
             return {
                 price_data: { 
@@ -37,28 +64,15 @@ export async function POST(req: Request) {
                     name: `${p.name} - size ${p.size}`,
                     images: [img],
                   },
-                  unit_amount: product?.price
+                  unit_amount: p.price
                 },
                 quantity: p.amount
             }        
         })
-
+        // resolve promises in productPromises
         const products = await Promise.all(productsPromises)
-        const user = await getServerSession(authOptions)
-
+        console.log(products)
         
-        const customer = await stripe.customers.create({
-            metadata: {
-                cart: JSON.stringify(body.cart.map((cartItem: CartProduct) => {
-                    return {
-                        id: cartItem.id,
-                        size: cartItem.size ,
-                        quantity: cartItem.amount
-                    }
-                })),
-                userId: JSON.stringify(body.userId)
-            }
-        })
 
         // Create Checkout Sessions from body params.
         const session = await stripe.checkout.sessions.create({
@@ -83,44 +97,7 @@ export async function POST(req: Request) {
             line_items: products,
             success_url: `${req.headers.get("origin")}/cart/success?success=true`,
             cancel_url: `${req.headers.get("origin")}/?canceled=true`,
-        });
-        
-        // type OrderProductsModel = {
-        //     name: string
-        //     quantity: number
-        //     size: number
-        // }[]
-        // const orderedProducts: OrderProductsModel = body.cart.map((p: CartProduct) =>  {
-        //     return {
-        //         name: p.name, 
-        //         quantity: p.amount,
-        //         size: p.size
-        //     }
-        // })
-        
-        // const newOrder = await db.order.create({
-        //     data: {
-        //         addressId: 1,
-        //         email: "itismorten@outlook.com",
-        //         name: "jordan belfort",
-        //         userId: "clkiqtwow0000vj2ogbe7f9if",
-        //         stripePaymentIntentId: session.id as string,
-        //         stripePaymentIntentStatus: session.payment_status as string,
-        //         total: session.amount_total!,
-        //         orderStatus: session.payment_status as string,
-        //         checkoutUrl: session.url,
-        //         orderItems: {
-        //             createMany: {
-        //                 data: [
-        //                     ...orderedProducts
-        //                 ]
-        //             }
-        //         },
-        //     }
-        // })
-        
-        // console.log("New Order", newOrder);
-        
+        });   
 
         return new Response(JSON.stringify(session), {status: 200})
     } catch (err: any) {

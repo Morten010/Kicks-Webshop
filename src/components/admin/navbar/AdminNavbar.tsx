@@ -5,10 +5,10 @@ import { useParams, usePathname } from 'next/navigation';
 import Link from 'next/link'
 
 // styling
-import {LuLayoutDashboard} from "react-icons/lu"
 import {BsBoxSeam} from "react-icons/bs"
 import {CiCircleList} from "react-icons/ci"
 import {LiaShoppingBasketSolid} from "react-icons/lia"
+import { BiCategoryAlt, BiHomeAlt2 } from 'react-icons/bi';
 
 export default function AdminNavbar() {
     const pathname = usePathname()
@@ -64,9 +64,9 @@ export default function AdminNavbar() {
             <li>
                 <Link
                 href="/admin/dashboard"
-                className={`flex justify-between gap-4 items-center py-2 px-4 rounded-md ${isDashboard("/admin/dashboard")? "bg-brand-blue text-white": ""}`}
+                className={`flex justify-between gap-4 items-center py-2 px-4 rounded-md ${pathname === "/admin/dashboard"? "bg-brand-blue text-white": ""}`}
                 >
-                    <LuLayoutDashboard 
+                    <BiHomeAlt2
                     className='text-xl'
                     /> dashboard
                 </Link>
@@ -83,10 +83,20 @@ export default function AdminNavbar() {
             </li>
             <li>
                 <Link
+                href="/admin/dashboard/brands"
+                className={`flex justify-between gap-4 items-center py-2 px-4 rounded-md ${isPathName("/admin/dashboard/brands")? "bg-brand-blue text-white": ""}`}
+                >
+                    <LiaShoppingBasketSolid 
+                    className='text-xl'
+                    /> Brands
+                </Link>
+            </li>
+            <li>
+                <Link
                 href="/admin/dashboard/categories"
                 className={`flex justify-between gap-4 items-center py-2 px-4 rounded-md ${isPathName("/admin/dashboard/categories")? "bg-brand-blue text-white": ""}`}
                 >
-                    <LiaShoppingBasketSolid 
+                    <BiCategoryAlt 
                     className='text-xl'
                     /> Categories
                 </Link>

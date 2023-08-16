@@ -23,7 +23,7 @@ export default async function page() {
                 All Categories
             </h1>
             <Link
-            href="/admin/dashboard/categories/create"
+            href="/admin/dashboard/brands/create"
             className='secondary-btn flex gap-2 items-center'
             >
                 <AiOutlinePlusCircle className='text-xl'/> Add New Category

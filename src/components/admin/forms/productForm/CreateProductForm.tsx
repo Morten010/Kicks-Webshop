@@ -145,6 +145,7 @@ export default function CreateProductForm({edit = false, product}: {
         //format image blob into image file
         const data = await convertFile(selectedImages)
         console.log(data);
+
         const imagesPromises = data.map(async (item) => {
             const uploaded = await startUpload([item])
            if(uploaded){
@@ -152,7 +153,7 @@ export default function CreateProductForm({edit = false, product}: {
            }
         })
         const images = await Promise.all(imagesPromises)
-        console.log("Images: ", images);
+
         
         // if image upload went wrong
         if(!images){
@@ -175,6 +176,7 @@ export default function CreateProductForm({edit = false, product}: {
         }
 
         // create product
+        // @ts-ignore
         const productUpload = await createProduct(product, images, sizes)
         
         // if not successfull stop rest from running

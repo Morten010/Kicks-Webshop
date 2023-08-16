@@ -80,24 +80,6 @@ export async function POST(req: Request, res: Response) {
       
       break;
     // ... handle other event types
-    case 'charge.succeeded':
-
-      const customerCs = await stripe.customers.retrieve(data.customer)
-        .then((customer) => {
-        console.log(customer);
-        return customer as any
-      }).catch(err => console.log(err));
-
-      const updateOrderCs = await db.order.update({
-        where: {
-          id: parseInt(customerCs.metadata.orderId)
-        },
-        data: {
-          orderStatus: "Paid",
-        }
-      })
-
-      break
     case "checkout.session.expired":
       const customerEx = await stripe.customers.retrieve(data.customer)
         .then((customer) => {

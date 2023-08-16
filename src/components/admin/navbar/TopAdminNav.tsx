@@ -12,9 +12,9 @@ export default function TopAdminNav() {
     className='bg-white py-4 px-5 flex justify-end gap-4 border-b border-b-[#232321]/20'
     >
         <h2
-        className='font-medium'
+        className='font-medium capitalize'
         >
-            {user?.firstName + " " + user?.lastName}
+            {user ? user?.firstName + " " + user?.lastName : "..."}
         </h2>
         <HiOutlineLogout 
         className='text-2xl hover:text-brand-yellow transition-colors cursor-pointer' 

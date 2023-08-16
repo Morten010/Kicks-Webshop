@@ -52,11 +52,15 @@ export default function CreateProductForm({edit = false, product}: {
     const title = useRef<HTMLInputElement>(null)
     const desc = useRef<HTMLTextAreaElement>(null)
     const price = useRef<HTMLInputElement>(null)
-    const [sizes, setSizes] = useState([{
-        id: 1,
-        size: "45",
-        quantity: "0",
-    }])
+    const [sizes, setSizes] = useState([
+        { id: 1, size: "40", quantity: (Math.floor(Math.random() * 12) + 5).toString() },
+        { id: 2, size: "41", quantity: (Math.floor(Math.random() * 12) + 5).toString() },
+        { id: 3, size: "42", quantity: (Math.floor(Math.random() * 12) + 5).toString() },
+        { id: 4, size: "43", quantity: (Math.floor(Math.random() * 12) + 5).toString() },
+        { id: 5, size: "44", quantity: (Math.floor(Math.random() * 12) + 5).toString() },
+        { id: 6, size: "45", quantity: (Math.floor(Math.random() * 12) + 5).toString() },
+        { id: 7, size: "46", quantity: (Math.floor(Math.random() * 12) + 5).toString() }
+    ])
     const [counter, setCounter] = useState(2)
     const [options, setOptions] = useState([
         {value: "", label: ""}
@@ -176,16 +180,16 @@ export default function CreateProductForm({edit = false, product}: {
         toast.success("The product was successfully created🥳!")
         setLoading(false)
 
-        //clean up form
-        title.current!.value = "";
-        desc.current!.value = "";
-        price.current!.value = "";
-        setSizes([{
-            id: 1,
-            size: "45",
-            quantity: "0",
-        }]);
-        setSelectedImages([])
+        // ! clean up form
+        // title.current!.value = "";
+        // desc.current!.value = "";
+        // price.current!.value = "";
+        // setSizes([{
+        //     id: 1,
+        //     size: "45",
+        //     quantity: "0",
+        // }]);
+        // setSelectedImages([])
     }
 
     const closeModal = () => {

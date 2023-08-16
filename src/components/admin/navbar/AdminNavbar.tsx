@@ -47,7 +47,7 @@ export default function AdminNavbar() {
 
   return (
     <nav
-    className='p-4 bg-white h-screen flex flex-col gap-8 items-center border-r border-r-[#232321]/20'
+    className='p-4 bg-white h-screen flex flex-col gap-8 items-center border-r border-r-[#232321]/20 min-w-[220px]'
     >
         {/* kicks logo */}
         <Image 

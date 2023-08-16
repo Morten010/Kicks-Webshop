@@ -25,7 +25,7 @@ export default async function Orders() {
   const sortedOrders: TableOrder[] = orders.map(item => {
     
     return {
-      id: item.id,
+      id: "#" + item.id,
       total: formatPrice(item.total),
       status: item.orderStatus,
       email: item.email,

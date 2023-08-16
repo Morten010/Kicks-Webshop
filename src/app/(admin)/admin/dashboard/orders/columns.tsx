@@ -3,7 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 
 export type TableOrder = {
-    id: number
+    id: string
     total: string
     status: string
     email: string

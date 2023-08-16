@@ -17,7 +17,7 @@ export default function TopAdminNav() {
             {user?.firstName + " " + user?.lastName}
         </h2>
         <HiOutlineLogout 
-        className='text-2xl hover:opacity-70 cursor-pointer' 
+        className='text-2xl hover:text-brand-yellow transition-colors cursor-pointer' 
         onClick={() => signOut()}
         />
     </div>

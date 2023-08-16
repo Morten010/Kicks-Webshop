@@ -1,8 +1,13 @@
+"use client"
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
+
+//images
 
 
 export default function HeroProduct() {
+    const [images, setImages] = useState(["/hero/1.jpg", "/hero/2.jpg"])
+    const [choosenImages, setChoosenImages] = useState("/hero/1.jpg")
   return (
     <div 
     className="w-full sm:aspect-[6/4] md:aspect-video relative rounded-3xl overflow-hidden aspect-[5/6]"
@@ -17,13 +22,13 @@ export default function HeroProduct() {
 
         {/* background image */}
         <div 
-        className='relative h-full w-full'
+        className='relative h-full w-full bg-brand-black'
         >
             <Image
             fill
-            src="/test-product.jpg"
+            src={choosenImages}
             alt="Shoe"
-            className="z-0 object-cover"
+            className="z-0 object-cover opacity-80"
             priority
             />
         </div>
@@ -55,26 +60,19 @@ export default function HeroProduct() {
         <div
         className='flex flex-col absolute right-0 bottom-0 -translate-x-2 -translate-y-2 p-1 gap-4'
         >
-            <div
-            className='relative aspect-square h-16 w-16 lg:w-24 lg:h-24 md:w-20 md:h-20'
-            >
-                <Image
-                fill
-                src="/test-product.jpg"
-                alt="Shoe"
-                className="z-0 object-cover border border-white rounded"
-                />
-            </div>
-            <div
-            className='relative aspect-square h-16 w-16 lg:w-24 lg:h-24 md:w-20 md:h-20'
-            >
-                <Image
-                fill
-                src="/test-product.jpg"
-                alt="Shoe"
-                className="z-0 object-cover border border-white rounded"
-                />
-            </div>
+            {images.map(image => (
+                <div
+                className='relative aspect-square h-16 w-16 lg:w-24 lg:h-24 md:w-20 md:h-20'
+                onClick={() => setChoosenImages(image)}
+                >
+                    <Image
+                    fill
+                    src={image}
+                    alt="Shoe"
+                    className="z-0 object-cover border border-white rounded"
+                    />
+                </div>
+            ))}
         </div>
         {/* other images end */}
 

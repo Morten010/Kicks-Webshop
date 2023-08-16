@@ -29,7 +29,7 @@ export default async function Orders() {
       id: "#" + item.id,
       total: formatPrice(item.total ? item.total : 100),
       status: item.orderStatus,
-      email: item.email,
+      email: item.email ? item.email : "Processing",
       date: new Date(item.createdAt).toDateString(),
     }
   })

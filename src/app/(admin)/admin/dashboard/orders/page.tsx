@@ -10,7 +10,7 @@ export const revalidate = 0
 export default async function Orders() {
   const orders = await db.order.findMany({
     orderBy: {
-      createdAt: "asc"
+      createdAt: "desc"
     },
     select: {
       id: true,
@@ -20,6 +20,7 @@ export default async function Orders() {
       createdAt: true,
     },
     take: 30,
+
   })
   
   const sortedOrders: TableOrder[] = orders.map(item => {

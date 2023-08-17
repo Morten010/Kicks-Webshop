@@ -1,7 +1,7 @@
 "use server"
 
 import { utapi } from "uploadthing/server"
-import { db } from "../db"
+import {db} from "@/src/lib/db"
 
 type ImagesProps = {
     fileKey: string
@@ -11,15 +11,14 @@ type ImagesProps = {
 export default async function createCategory(image:  ImagesProps, name: string) {
     const img = image[0]
     console.log(image, name)
-    const cats = await db.category.findMany({})
-    console.log(cats);
     
     const newCat = await db.category.create({
         data: {
             fileKey: img.fileKey,
             fileUrl: img.fileUrl,
             name: name,
-        }
+        },
+        
     }) 
     
     console.log(image);

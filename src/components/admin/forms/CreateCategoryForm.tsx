@@ -8,12 +8,14 @@ import { useUploadThing } from '@/src/app/utils/uploadthing';
 import CreateCategory from '@/src/lib/functions/createCategory';
 import createCategory from '@/src/lib/functions/createCategory';
 import { convertFile } from '@/src/app/utils/convertFile';
+import { toast } from 'react-toastify';
 
 export default function CreateCategoryForm() {
     const [file, setFile] = useState<File>()
     const [blob, setBlob] = useState<string>("")
     const [title, setTitle] = useState("")
     const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
     const { startUpload, permittedFileInfo } = useUploadThing("productImage");
     console.log(permittedFileInfo);
     
@@ -41,6 +43,7 @@ export default function CreateCategoryForm() {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
+        setLoading(false)
         setError("")
         try{
             parse(formSchema, {title: title, file: blob})
@@ -49,10 +52,12 @@ export default function CreateCategoryForm() {
                 const newCategory = await createCategory(uploadedImage, title)
                 console.log(newCategory);
                 if(!newCategory){
+                    setLoading(false)
                     setError("Something went wrong :(")
                 }
-
+                toast.success("Category was added!!!")
             }else{
+                setLoading(false)
                 throw new Error("Failed to upload image: forst")
             }
         }catch(err){
@@ -60,6 +65,7 @@ export default function CreateCategoryForm() {
             if (err instanceof Error) message = err.message
             console.log({message});
             setError(message)
+            setLoading(false)
         }
         
     }
@@ -88,11 +94,16 @@ export default function CreateCategoryForm() {
             >
                 {error}
             </p>
-            <button
+            {!loading ? <button
             className='secondary-btn w-full'
             >
                 Submit
-            </button>
+            </button> : <button
+            className='secondary-btn w-full opacity-60'
+            disabled
+            >
+                Submit
+            </button>}
         </div>
         <CategoryCard image={blob} title={title} style={"md:w-2/4"}/>
     </form>

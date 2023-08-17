@@ -90,8 +90,8 @@ model Brand {
 }
 
 model Category {
-  id Int @id @default(autoincrement())
-  name String
+  id      Int    @id @default(autoincrement())
+  name    String
   fileUrl String
   fileKey String
 }
@@ -145,7 +145,7 @@ model OrderItems {
   name     String
   size     Int
   quantity Int
-  orderId  Int 
+  orderId  Int
 
   order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
 }

@@ -27,7 +27,7 @@ export default function CategoryCard({image, title, slug, style = null}: Categor
                 <h1
                 className='text-4xl font-semibold max-w-[150px]'
                 >
-                    {title ? `${title} shoes` : "Training shoes"}
+                    {title ? `${title} shoes` : "______ shoes"}
                 </h1>
                 <Link 
                 href={slug ? `/products/${slug}` : ""}

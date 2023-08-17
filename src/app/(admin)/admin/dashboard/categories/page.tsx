@@ -1,8 +1,11 @@
+import CategoryCard from '@/src/components/CategoryCard'
+import { db } from '@/src/lib/db'
 import Link from 'next/link'
 import React from 'react'
 import { AiOutlinePlusCircle } from 'react-icons/ai'
 
-export default function page() {
+export default async function page() {
+  const data = await db.category.findMany({})
   return (
     <div
     className='flex flex-col'
@@ -24,6 +27,13 @@ export default function page() {
             </Link>
         </div>
         {/* end of top header */}
+        <div
+        className='category-grid'
+        >
+          {data.map((item, index) => (
+            <CategoryCard key={index} title={item.name} image={item.fileUrl} />
+          ))}
+        </div>
     </div>
   )
 }

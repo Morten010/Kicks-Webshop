@@ -1,4 +1,4 @@
-import { HeroProduct, Products } from "@/src/components";
+import { Categories, HeroProduct, Products } from "@/src/components";
 import { db } from "@/src/lib/db";
 import Image from "next/image";
 
@@ -20,10 +20,12 @@ export default async function Home() {
     },
     take: 4,
   })
+
+  const cateogories = await db.category.findMany({})
       
   return (
     <main
-    className="relative w-full flex flex-col gap-6"
+    className="w-full flex flex-col gap-6"
     >
       {/* hero title */}
       <Image
@@ -39,6 +41,10 @@ export default async function Home() {
       {/* hero product */}
       {products && <Products products={products}/>}
       {/* hero product end */}
+
+      {/* start of categories */}
+      <Categories categories={cateogories} />
+      {/* end of categories */}
 
     </main>
   )

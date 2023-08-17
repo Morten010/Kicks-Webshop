@@ -13,7 +13,7 @@ type CategoryCardProps = {
 export default function CategoryCard({image, title, slug, style = null}: CategoryCardProps) {
   return (
     <div
-       className={`relative aspect-square flex flex-col justify-end p-2 ${style}`}
+       className={`relative aspect-square flex flex-col justify-end p-4 sm:p-2 ${style} w-full`}
        >
             {image && <Image 
             src={image}
@@ -22,15 +22,15 @@ export default function CategoryCard({image, title, slug, style = null}: Categor
             fill
             />}
             <div
-            className='flex justify-between z-20 items-end opacity-80'
+            className='flex justify-between z-20 items-end '
             >
-                <h1
+                <h3
                 className='text-4xl font-semibold max-w-[150px]'
                 >
                     {title ? `${title} shoes` : "______ shoes"}
-                </h1>
+                </h3>
                 <Link 
-                href={slug ? `/products/${slug}` : ""}
+                href={slug ? `/products/${slug}` : "#"}
                 className=''
                 >
                     <BsFillArrowUpRightSquareFill className='text-4xl hover:opacity-80 transition-opacity'/>

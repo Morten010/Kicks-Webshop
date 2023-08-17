@@ -16,8 +16,7 @@ type ProductProps = {
     }[]
 }
 
-
-export default function Products({products}: ProductProps) {
+export default async function Products({products}: ProductProps) {
 
   
   return (
@@ -38,12 +37,15 @@ export default function Products({products}: ProductProps) {
         {/* end of top */}
 
         {/* products */}
-        <div className='product-grid'>
+        <div 
+        className='grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-4 no-scrollbar' 
+        >
            {products?.length !== 0 && products?.map(product => (
                <ProductCard key={product.id} product={product}/>
            ))}
         </div>
         {/* end of products */}
+
     </section>
   )
 }

@@ -3,7 +3,7 @@
 import {useEffect, useRef, useState} from 'react'
 import React from 'react'
 import Select from 'react-select'
-import { uploadFiles, useUploadThing } from '@/src/app/utils/uploadthing'
+import { useUploadThing } from '@/src/app/utils/uploadthing'
 import { toast } from 'react-toastify'
 import { Product, ProductImage, Size } from '@prisma/client'
 

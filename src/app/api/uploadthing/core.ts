@@ -9,7 +9,8 @@ const auth = (req: Request) => ({ id: "fakeId" }); // Fake auth function
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
   // Define as many FileRoutes as you like, each with a unique routeSlug
-  productImage: f({ image: { maxFileSize: "4MB", maxFileCount: 4 } })
+  productImage: f({image: { maxFileSize: "4MB", maxFileCount: 4 }})
+
     // Set permissions and file types for this FileRoute
     .middleware(async ({ req }) => {
       // This code runs on your server before upload
@@ -20,9 +21,6 @@ export const ourFileRouter = {
         }
       })
 
-      console.log(user);
-      
- 
       // If you throw, the user will not be able to upload
       if (isAdmin?.role !== "ADMIN") throw new Error("Unauthorized");
  

@@ -7,10 +7,10 @@ type CategoryCardProps = {
     image: string
     title: string
     slug?: string
-    style?: string
+    style?: string | null
 }
 
-export default function CategoryCard({image, title, slug, style = ""}: CategoryCardProps) {
+export default function CategoryCard({image, title, slug, style = null}: CategoryCardProps) {
   return (
     <div
        className={`relative aspect-square flex flex-col justify-end p-2 ${style}`}
@@ -27,10 +27,10 @@ export default function CategoryCard({image, title, slug, style = ""}: CategoryC
                 <h1
                 className='text-4xl font-semibold max-w-[150px]'
                 >
-                    {title ? title : "Training shoes"}
+                    {title ? `${title} shoes` : "Training shoes"}
                 </h1>
                 <Link 
-                href={slug ? `/products/${slug}` : "/admin/dashboard//categories/create"}
+                href={slug ? `/products/${slug}` : ""}
                 className=''
                 >
                     <BsFillArrowUpRightSquareFill className='text-4xl hover:opacity-80 transition-opacity'/>

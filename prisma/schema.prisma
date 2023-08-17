@@ -89,6 +89,13 @@ model Brand {
   desc String? @db.Text
 }
 
+model Category {
+  id Int @id @default(autoincrement())
+  name String
+  fileUrl String
+  fileKey String
+}
+
 model Product {
   id        Int      @id @default(autoincrement())
   name      String

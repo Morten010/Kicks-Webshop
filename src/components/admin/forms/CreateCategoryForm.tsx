@@ -14,8 +14,9 @@ export default function CreateCategoryForm() {
     const [blob, setBlob] = useState<string>("")
     const [title, setTitle] = useState("")
     const [error, setError] = useState("")
-    const { startUpload } = useUploadThing("productImage");
-
+    const { startUpload, permittedFileInfo } = useUploadThing("productImage");
+    console.log(permittedFileInfo);
+    
     const formSchema = object({
         title: string("you're password must be atleast 2 characters long and not over 25 characters", [minLength(2), maxLength(20)]),
         file: string("Input file",[minLength(2)]),
@@ -24,7 +25,13 @@ export default function CreateCategoryForm() {
     type formData = Output<typeof formSchema>
     
     const handleFiles = (files: File[]) => {
-        console.log(files);
+        //check file size
+        setError("")
+        if(files[0].size > 4000000){
+            setError("File is to big.")
+            return
+        }
+        //make file:blob
         const imageArray = files.map((file) =>{
             return URL.createObjectURL(file as Blob | MediaSource)
         })
@@ -37,20 +44,17 @@ export default function CreateCategoryForm() {
         setError("")
         try{
             parse(formSchema, {title: title, file: blob})
-            if(file){
-                const uploadedImage = await startUpload([file])
-                if(uploadedImage){
-                    const newCategory = await createCategory(uploadedImage, title)
-                    console.log(newCategory);
-                    if(!newCategory){
-                        setError("Something went wrong :(")
-                    }
-
-                }else{
-                    throw new Error("Failed to upload image")
+            const uploadedImage = await startUpload([file!])
+            if(uploadedImage){
+                const newCategory = await createCategory(uploadedImage, title)
+                console.log(newCategory);
+                if(!newCategory){
+                    setError("Something went wrong :(")
                 }
-            }
 
+            }else{
+                throw new Error("Failed to upload image: forst")
+            }
         }catch(err){
             let message = 'Unknown Error'
             if (err instanceof Error) message = err.message

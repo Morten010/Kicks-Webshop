@@ -1,4 +1,4 @@
-import { CreateCategoryForm } from '@/src/components'
+import { CreateBrandForm } from '@/src/components'
 import React from 'react'
 
 export default function CreateCategories() {
@@ -7,9 +7,9 @@ export default function CreateCategories() {
         <h1
         className='text-xl font-semibold'
         >
-            Create Category
+            Create Brand
         </h1>
-        <CreateCategoryForm />
+        <CreateBrandForm />
     </div>
   )
 }

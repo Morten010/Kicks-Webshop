@@ -13,7 +13,7 @@ type itemProps = {
    },
 }
 
-export default function CategoryCard({item}: itemProps ) {
+export default function BrandCard({item}: itemProps ) {
     const [hidden, setHidden] = useState(false)
     const [showMore, setShowMore] = useState(false)
     const [showModal, setShowModal] = useState(false)

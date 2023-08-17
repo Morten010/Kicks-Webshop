@@ -3,6 +3,7 @@ import React from 'react'
 import { BsTrash } from 'react-icons/bs'
 import {BiImageAdd} from "react-icons/bi"
 import { LuImageOff } from 'react-icons/lu'
+import CustomDropZone from '../CustomDropZone'
 
 type ImageUploadProps = {
     setSelectedImages: ([]: string[]) => void
@@ -12,8 +13,7 @@ type ImageUploadProps = {
 export default function ImageUpload({setSelectedImages, selectedImages}: ImageUploadProps) {
 
     // when files are selected
-    const onSelectFile = (e:any) => {
-        const selectedFiles = e.target.files;
+    const onSelectFile = (selectedFiles: File[]) => {
         const selectedFilesArray = Array.from(selectedFiles)
         console.log(selectedFiles);
         
@@ -68,32 +68,10 @@ export default function ImageUpload({setSelectedImages, selectedImages}: ImageUp
         className='font-medium mb-2 mt-4'
         >
             images
-        </h2>
-        <div
-        className='py-2 px-2 rounded-lg w-full border-gray-500 border-dashed border-2 mb-4'
-        >
-            <label
-            className='w-full h-full grid place-content-center text-center text-gray-500 p-4'
-            >
-                <BiImageAdd 
-                className='text-5xl mx-auto text-brand-blue'
-                />
-                <span
-                className='text-xl font-semibold'
-                >
-                    Click to add Images
-                </span>
-                add up to 4 images
-                <input 
-                type="file" 
-                name="upload image" 
-                multiple
-                accept='images/png, images/jpeg, images/webp'
-                onChange={onSelectFile}
-                className='hidden'
-                />
-            </label>
-        </div>
+        </h2>   
+        
+        <CustomDropZone handleFiles={onSelectFile} />
+
         {selectedImages[0] && (
             <div
             className='category-grid py-4'
@@ -113,12 +91,6 @@ export default function ImageUpload({setSelectedImages, selectedImages}: ImageUp
                             fill
                             className='object-cover'
                             />
-                            
-                            {/* <p
-                            className='absolute left-2 top-2 text-brand-blue'
-                            >
-                                {index + 1}/{selectedImages.length}
-                            </p> */}
                         </div>
                         <button
                         className='text-xl font-semibold text-white bg-red-700 p-2.5 rounded-full  hover:opacity-70 '

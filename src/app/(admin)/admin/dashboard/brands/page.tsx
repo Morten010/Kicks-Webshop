@@ -1,4 +1,4 @@
-import { CategoryCard } from '@/src/components'
+import BrandCard from '@/src/components/admin/BrandCard'
 import { db } from '@/src/lib/db'
 import Link from 'next/link'
 import React from 'react'
@@ -20,13 +20,13 @@ export default async function page() {
             <h1
             className='text-xl font-semibold'
             >
-                All Categories
+                All Brands
             </h1>
             <Link
             href="/admin/dashboard/brands/create"
             className='secondary-btn flex gap-2 items-center'
             >
-                <AiOutlinePlusCircle className='text-xl'/> Add New Category
+                <AiOutlinePlusCircle className='text-xl'/> Add New Brand
             </Link>
         </div>
         {/* end of top header */}
@@ -36,7 +36,7 @@ export default async function page() {
         className='category-grid py-4'
         >
             {result && result.map(item => (
-                <CategoryCard key={item.id} item={item} />
+                <BrandCard key={item.id} item={item} />
             ))}
         </div>
         {/* end of categories */}

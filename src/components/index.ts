@@ -5,8 +5,8 @@ import Loader from "./Loader";
 import ProductCard from "./ProductCard";
 import ProductView from "./ProductView";
 import Products from "./Products";
-import CategoryCard from "./admin/CategoryCard";
 import ProductAdminCard from "./admin/ProductAdminCard";
+import CreateBrandForm from "./admin/forms/CreateBrandForm";
 import CreateCategoryForm from "./admin/forms/CreateCategoryForm";
 import CreateProductForm from "./admin/forms/productForm/CreateProductForm";
 import AdminNavbar from "./admin/navbar/AdminNavbar";
@@ -22,8 +22,8 @@ export {
     SigUpForm,
     AdminNavbar,
     CreateProductForm,
-    CreateCategoryForm,
-    CategoryCard,
+    CreateBrandForm,
     Loader,
-    ProductAdminCard
+    ProductAdminCard,
+    CreateCategoryForm
 }

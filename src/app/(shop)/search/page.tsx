@@ -34,7 +34,7 @@ export default async function Search({searchParams}: SearchProps) {
           }
         }
       }, 
-      brandId: {
+      categoryId: {
         equals: searchParams.category ? parseInt(searchParams.category): undefined
       },
       gender: searchParams.gender,

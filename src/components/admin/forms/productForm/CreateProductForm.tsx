@@ -57,7 +57,6 @@ export default function CreateProductForm({edit = false, product}: {
     const title = useRef<HTMLInputElement>(null)
     const desc = useRef<HTMLTextAreaElement>(null)
     const price = useRef<HTMLInputElement>(null)
-    usestate
     const [sizes, setSizes] = useState([
         { id: 1, size: "40", quantity: (Math.floor(Math.random() * 12) + 5).toString() },
         { id: 2, size: "41", quantity: (Math.floor(Math.random() * 12) + 5).toString() },

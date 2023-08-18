@@ -35,10 +35,10 @@ export default function Categories({categories} : {
       }
     }, [width])
   return (
-    <section className='bg-brand-black pt-8 pl-8 text-white rounded-2xl overflow-hidden'>
+    <section className='bg-brand-black sm:pt-8 pl-4 pt-4 sm:pl-8 text-white rounded-2xl overflow-hidden'>
       {/* top */}
       <div
-      className='flex justify-between items-end mb-4 mr-8'
+      className='flex justify-between items-end mb-4 mr-4 sm:mr-8'
       >
         <h2
         className='font-bold heading max-w-[50%] sm:max-w-[60%] md:max-w-[70%]'

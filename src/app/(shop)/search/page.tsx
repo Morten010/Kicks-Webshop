@@ -24,8 +24,6 @@ export default async function Search({searchParams}: SearchProps) {
     searchSizes = searchParams.sizes.map(s => {return parseInt(s)})
   }
 
-  console.log(searchParams.category);
-  
 
   const count = await db.product.count({
     where: {

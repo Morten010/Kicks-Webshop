@@ -94,6 +94,8 @@ model Category {
   name    String
   fileUrl String
   fileKey String
+  
+  products Product[]
 }
 
 model Product {
@@ -106,6 +108,9 @@ model Product {
   gender    String
   sold      Int      @default(0)
   createdAt DateTime @default(now())
+  categoryId  Int    
+
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   productImage ProductImage[]
   size         Size[]

@@ -6,11 +6,11 @@ import { BsFillArrowUpRightSquareFill } from 'react-icons/bs'
 type CategoryCardProps = {
     image: string
     title: string
-    slug?: string
+    id?: number
     style?: string | null
 }
 
-export default function CategoryCard({image, title, slug, style = null}: CategoryCardProps) {
+export default function CategoryCard({image, title, id, style = null}: CategoryCardProps) {
   return (
     <div
        className={`relative aspect-square flex flex-col justify-end p-4 sm:p-2 ${style} w-full`}
@@ -30,7 +30,7 @@ export default function CategoryCard({image, title, slug, style = null}: Categor
                     {title ? `${title} shoes` : "______ shoes"}
                 </h3>
                 <Link 
-                href={slug ? `/products/${slug}` : "#"}
+                href={id ? `/search?category=${id}` : "#"}
                 className=''
                 >
                     <BsFillArrowUpRightSquareFill className='text-4xl hover:opacity-80 transition-opacity'/>

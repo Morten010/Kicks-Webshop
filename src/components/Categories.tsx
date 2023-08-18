@@ -67,7 +67,7 @@ export default function Categories({categories} : {
           key={item.id}
           className='w-[100%] min-w-[100%] sm:w-[50%] sm:min-w-[50%]'
           >
-            <CategoryCard image={item.fileUrl} title={item.name} />
+            <CategoryCard image={item.fileUrl} title={item.name} id={item.id} />
           </div>
         ))}
       </div>

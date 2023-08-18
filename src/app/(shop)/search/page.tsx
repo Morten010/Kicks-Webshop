@@ -9,6 +9,7 @@ type SearchProps = {
       gender?: string
       sizes?: string[]
       orderby?: any
+      category?: string
   }
 }
 
@@ -26,16 +27,25 @@ export default async function Search({searchParams}: SearchProps) {
       name: {
         contains: searchParams.name
       },
+      size: {
+        some: {
+          size: {
+            in: searchSizes
+          }
+        }
+      }, 
+      brandId: {
+        equals: searchParams.category ? parseInt(searchParams.category): undefined
+      },
       gender: searchParams.gender,
     },
   }) 
-  
 
   const products = await db.product.findMany({
     orderBy: {
       createdAt: searchParams.orderby ? searchParams.orderby : "desc"
     },
-    where: {
+    where: { 
       name: {
         contains: searchParams.name
       },
@@ -47,12 +57,16 @@ export default async function Search({searchParams}: SearchProps) {
           }
         }
       }, 
+      brandId: {
+        equals: searchParams.category ? parseInt(searchParams.category): undefined
+      },
     },
     include: {
       productImage: true,
       size: true,
     },
   })
+  
 
   const sizes = await db.size.groupBy({
     by: ['size'],

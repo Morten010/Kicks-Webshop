@@ -3,13 +3,19 @@ import React, { useState, useEffect } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { CgSearch } from 'react-icons/cg'
 import {MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank} from "react-icons/md"
-import Select from 'react-select'
+import Select, { GroupBase } from 'react-select'
+import { getAllCategories } from '@/src/lib/functions/categories'
 
 // options for sort by
 const OrderByOptions = [
     {value: "desc", label: "Newest"},
     {value: "asc", label: "Oldest"},
 ]
+
+type CategoryProps = readonly ({ 
+    value: string; label: string; } | GroupBase<{ value: string; label: string; 
+}>)[]
+
 
 export default function SearchForm({count, sizes}: {
     count: number
@@ -22,6 +28,11 @@ export default function SearchForm({count, sizes}: {
         value: "",
         label: ""
     })
+    const [categories, setCategories] = useState({
+        value: "",
+        label: ""
+    })
+     const [categoryOptions, setCategoryOptions] = useState<CategoryProps>([])
     const pathname = usePathname();
     const searchParams = useSearchParams()
     const router = useRouter()
@@ -59,6 +70,13 @@ export default function SearchForm({count, sizes}: {
             current.set("orderby", orderBy.value)
         }
 
+        // set category from query
+        if(!categories.label){
+            current.delete("category")
+        }else{
+            current.set("category", categories.value)
+        }
+
 
         // cast to string
         const search = current.toString();
@@ -86,6 +104,12 @@ export default function SearchForm({count, sizes}: {
         }
     }
 
+    //handle category change
+    const handleCategory = (option: SelectOptionType | null) => {
+        if(option){
+            setCategories(option)
+        }
+    }
 
     const handleSize = (newSize: number) => {
         if(size.includes(newSize.toString())){
@@ -98,6 +122,31 @@ export default function SearchForm({count, sizes}: {
     useEffect(() => {
         const searchSize = searchParams.getAll("sizes")
         const searchGender = searchParams.get("gender")
+        const searchCategory = searchParams.get("category")
+        
+        const fetchData = async () => {
+            const cat = await getAllCategories()
+            if(cat){
+                const newArray = cat.map(item => {
+                    return {
+                        value: item.id.toString(),
+                        label: item.name,
+                    }
+                })
+                setCategoryOptions(newArray)
+
+                if(searchCategory){
+                    newArray.map(item => {
+                        if(item.value === searchCategory){
+                            setCategories(item)
+                        }
+                    })
+                }
+            }
+            console.log(cat);
+        }
+
+        fetchData()
 
         if(searchSize.length !== 0){
             setSize(searchSize)
@@ -229,10 +278,25 @@ export default function SearchForm({count, sizes}: {
             options={OrderByOptions}
             onChange={handleOrderBy}
             value={orderBy}
-            className='mb-4 mt-2 z-50'
+            className='mb-4 mt-2 z-[55]'
             />
         )}
         {/* end of sort by */}
+        <h3
+        className='text-lg font-medium mt-4 mb-2'
+        >
+            Categories
+        </h3>
+        {/* categories */}
+        {OrderByOptions && (
+            <Select 
+            options={categoryOptions!}
+            onChange={handleCategory}
+            value={categories}
+            className='mb-4 mt-2 z-50'
+            />
+        )}
+        {/* end of categories */}
 
     </form>
   )

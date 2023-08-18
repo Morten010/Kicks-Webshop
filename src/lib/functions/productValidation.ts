@@ -12,6 +12,7 @@ type ProductValidationProps = {
     gender: string
     sizes: VSize[]
     images: string[]
+    category: string
 }
 
 export const productValidation = async (product: ProductValidationProps) => {
@@ -23,6 +24,7 @@ export const productValidation = async (product: ProductValidationProps) => {
         gender: "",
         sizes: "",
         images: "",
+        category: ""
     }
 
     // validate title
@@ -69,6 +71,13 @@ export const productValidation = async (product: ProductValidationProps) => {
         errors.brand = "Required"
     } else{
         errors.brand = ""
+    }
+
+    // validate category
+    if(!product.category){
+        errors.category = "Required"
+    } else{
+        errors.category = ""
     }
 
     console.log(product.images);

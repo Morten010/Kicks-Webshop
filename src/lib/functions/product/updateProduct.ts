@@ -8,6 +8,7 @@ type ProductProps = {
     price?: number
     brandId?: number
     gender?: string
+    categoryId?: number
 }
 
 export const updateProduct = async (product: ProductProps, id: number) => {

@@ -2,7 +2,7 @@
 
 import {useEffect, useRef, useState} from 'react'
 import React from 'react'
-import Select from 'react-select'
+import Select, { GroupBase } from 'react-select'
 import { useUploadThing } from '@/src/app/utils/uploadthing'
 import { toast } from 'react-toastify'
 import { Product, ProductImage, Size } from '@prisma/client'
@@ -29,8 +29,9 @@ import deleteImages from '@/src/lib/functions/image/deleteImages'
 import createSizes from '@/src/lib/functions/size/createSizes'
 import { updateProduct } from '@/src/lib/functions/product/updateProduct'
 import deleteProduct from '@/src/lib/functions/product/deleteProduct'
-import getAllCategories from '@/src/lib/functions/brand/getAllCategories'
 import Modal from '@/src/components/Modal'
+import getAllBrands from '@/src/lib/functions/brand/getAllBrands'
+import { getAllCategories } from '@/src/lib/functions/categories'
 
 // gender options
 const genderOptions = [
@@ -43,6 +44,10 @@ type ProductProps = Product & {
     size?: Size[]
 }
 
+type CategoryProps = readonly ({ 
+    value: string; label: string; } | GroupBase<{ value: string; label: string; 
+}>)[]
+
 
 export default function CreateProductForm({edit = false, product}: {
     edit?: boolean, 
@@ -52,6 +57,7 @@ export default function CreateProductForm({edit = false, product}: {
     const title = useRef<HTMLInputElement>(null)
     const desc = useRef<HTMLTextAreaElement>(null)
     const price = useRef<HTMLInputElement>(null)
+    usestate
     const [sizes, setSizes] = useState([
         { id: 1, size: "40", quantity: (Math.floor(Math.random() * 12) + 5).toString() },
         { id: 2, size: "41", quantity: (Math.floor(Math.random() * 12) + 5).toString() },
@@ -62,6 +68,11 @@ export default function CreateProductForm({edit = false, product}: {
         { id: 7, size: "46", quantity: (Math.floor(Math.random() * 12) + 5).toString() }
     ])
     const [counter, setCounter] = useState(2)
+    const [categories, setCategories] = useState({
+        value: "",
+        label: ""
+    })
+     const [categoryOptions, setCategoryOptions] = useState<CategoryProps>([])
     const [options, setOptions] = useState([
         {value: "", label: ""}
     ])
@@ -96,6 +107,13 @@ export default function CreateProductForm({edit = false, product}: {
             quantity: "0",
         }])
         setCounter(counter + 1)
+    }
+
+    //handle category change
+    const handleCategory = (option: SelectOptionType | null) => {
+        if(option){
+            setCategories(option)
+        }
     }
  
     // updates sizes
@@ -132,6 +150,7 @@ export default function CreateProductForm({edit = false, product}: {
             images: selectedImages,
             price:  price.current?.value as string,
             sizes: sizes,
+            category: categories.value
         })
         
         // set errors and if error is found stop the rest from runing
@@ -150,7 +169,7 @@ export default function CreateProductForm({edit = false, product}: {
             const uploaded = await startUpload([item])
            if(uploaded){
                 return uploaded[0]
-           }
+           } 
         })
         const images = await Promise.all(imagesPromises)
 
@@ -173,6 +192,7 @@ export default function CreateProductForm({edit = false, product}: {
             price: parseInt(newPrice.replaceAll(".", "") as string),
             gender: gender.value,
             brandId: parseInt(brand.value),
+            categoryId: parseInt(categories.value)
         }
 
         // create product
@@ -241,6 +261,7 @@ export default function CreateProductForm({edit = false, product}: {
             images: selectedImages,
             price:  price.current?.value as string,
             sizes: sizes,
+            category: categories.value
         })
         
         // set errors and if error is found stop the rest from runing
@@ -260,7 +281,10 @@ export default function CreateProductForm({edit = false, product}: {
             //upload file to storage
             const UploadedImages = await startUpload(convertedFiles);
             //update selected array with new uploaded url so we can delete it without refreshing
-            const uploadImagesUrl = UploadedImages?.map(item => {
+            const uploadImagesUrl = UploadedImages?.map((item: {
+                fileUrl: string
+                fileKey: string
+            }) => {
                 return item.fileUrl
             })
             const noblob = selectedImages.filter(item => !item.includes("blob"))
@@ -326,7 +350,6 @@ export default function CreateProductForm({edit = false, product}: {
             console.log(deletedSizes);
         }
 
-        // !update changed sizes
         // all current sizes
         const newSizeNum = sizeLeft.filter(item => {
             if(currSize?.includes(item.id)){
@@ -382,6 +405,7 @@ export default function CreateProductForm({edit = false, product}: {
             || CurrProduct?.price !== newPriceInt
             || oldBrand[0].value !== brand.value
             || gender.value !== product?.gender
+            || parseInt(categories.value) !== product?.categoryId
             ){
                 //create new product
             const newProduct = {
@@ -389,16 +413,19 @@ export default function CreateProductForm({edit = false, product}: {
                 desc: desc.current?.value as string,
                 price: newPriceInt,
                 brandId: parseInt(brand.value),
-                gender: gender.value
+                gender: gender.value,
+                categoryId: parseInt(categories.value)
             }
             const updatedProduct = await updateProduct(newProduct, product?.id!)
-            console.log("updated Product", updatedProduct);
-            
+             //success message and stop loading
+            toast.success("Updated the product🥳!")
+            setLoading(false)
+        } else{
+            toast.info("There were nothing to change.")
+            setLoading(false)
         }
 
-        //success message and stop loading
-        toast.success("Updated the product🥳!")
-        setLoading(false)
+
     }
 
     const handleDelete = async () => {
@@ -417,7 +444,7 @@ export default function CreateProductForm({edit = false, product}: {
     useEffect(() => {
         const fetchData = async () => {
             const newArray = []
-            const res = await getAllCategories()
+            const res = await getAllBrands()
             // loop through res and push formatted data to array
             for(const category of res){
                 const item = {
@@ -467,10 +494,39 @@ export default function CreateProductForm({edit = false, product}: {
                 }
             }
 
+            //get categories
+            const cat = await getAllCategories()
+            if(cat){
+                const newCat = cat.map(item => {
+                    return {
+                        value: item.id.toString(),
+                        label: item.name as string,
+                    }
+                })
+                console.log(cat);
+                
+                setCategoryOptions(newCat)
+                cat.map(item => {
+                    console.log(product?.categoryId, item.id);
+                    if(item.id === product?.categoryId){
+                        console.log("THIS",item, product.categoryId);
+                        
+                        setCategories({
+                            label: item.name!,
+                            value: item.id.toString()
+                        })
+                        console.log("CAT", item);
+                        
+                    }
+                })
+            }
+            
         }
 
         // intiate fetch function
         fetchData()
+
+
 
     }, [])
 
@@ -590,6 +646,31 @@ export default function CreateProductForm({edit = false, product}: {
                     </p>
                     )}
                 </div>
+
+                <div
+                className='w-2/4'
+                >
+                    <h2
+                    className='font-semibold'
+                    >
+                        Category
+                    </h2>
+                    {categoryOptions && (
+                        <Select 
+                        options={categoryOptions!}
+                        onChange={handleCategory}
+                        value={categories}
+                        />
+                    )}
+                    {errors.brand && (
+                    <p
+                    className='text-red-600 '
+                    >
+                        {errors.brand}
+                    </p>
+                    )}
+                </div>
+                
                 <div
                 className='w-2/4'
                 >

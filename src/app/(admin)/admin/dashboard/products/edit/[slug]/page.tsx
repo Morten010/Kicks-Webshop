@@ -18,9 +18,7 @@ export default async function ChangeProductPage({params}: {params: {slug: string
       size: true,
     }
   })
-  console.log(product);
   
-
   return (
     <div
     className="h-full"

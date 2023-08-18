@@ -15,6 +15,7 @@ type ProductProps = {
     price: number
     brandId: number
     gender: string
+    categoryId: number
 }
 
 type SizesProps = {
@@ -33,7 +34,8 @@ export default async function createProduct(product: ProductProps, images:Images
             desc: product.desc,
             price: product.price,
             brandId: product.brandId,
-            gender: product.gender
+            gender: product.gender,
+            categoryId: product.categoryId
         }
     })
     

@@ -288,7 +288,7 @@ export default function SearchForm({count, sizes}: {
             Categories
         </h3>
         {/* categories */}
-        {OrderByOptions && (
+        {categoryOptions && (
             <Select 
             options={categoryOptions!}
             onChange={handleCategory}

@@ -3,6 +3,8 @@ import SearchFormContainer from '@/src/components/forms/SearchFormContainer';
 import { db } from '@/src/lib/db'
 import React from 'react'
 
+export const revalidate = 0
+
 type SearchProps = {
   searchParams: {
       name?: string
@@ -22,13 +24,16 @@ export default async function Search({searchParams}: SearchProps) {
     searchSizes = searchParams.sizes.map(s => {return parseInt(s)})
   }
 
+  console.log(searchParams.category);
+  
+
   const count = await db.product.count({
     where: {
       name: {
         contains: searchParams.name
       },
       size: {
-        some: {
+        every: {
           size: {
             in: searchSizes
           }
@@ -57,7 +62,7 @@ export default async function Search({searchParams}: SearchProps) {
           }
         }
       }, 
-      brandId: {
+      categoryId: {
         equals: searchParams.category ? parseInt(searchParams.category): undefined
       },
     },

@@ -8,6 +8,7 @@ import { getAllCategories } from '@/src/lib/functions/categories'
 
 // options for sort by
 const OrderByOptions = [
+    {value: "", label: "None"},
     {value: "desc", label: "Newest"},
     {value: "asc", label: "Oldest"},
 ]
@@ -133,7 +134,11 @@ export default function SearchForm({count, sizes}: {
                         label: item.name,
                     }
                 })
-                setCategoryOptions(newArray)
+                const none = {
+                    value: "",
+                    label: "None"
+                }
+                setCategoryOptions([none ,...newArray])
 
                 if(searchCategory){
                     newArray.map(item => {

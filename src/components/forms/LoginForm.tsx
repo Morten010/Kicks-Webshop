@@ -14,7 +14,6 @@ type LoginFormProps = {
 export default function LoginForm({redirect = null}: LoginFormProps ) {
   const router = useRouter()
 
-  const navigate = useRouter() 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [errors, setErrors] = useState({

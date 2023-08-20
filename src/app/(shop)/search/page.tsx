@@ -91,7 +91,7 @@ export default async function Search({searchParams}: SearchProps) {
       className='w-full lg:w-[70%] h-full'
       >
         <div
-        className='product-grid h-full'
+        className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 h-full'
         >
           {products.length !== 0 && products.map(p => (
             <ProductCard product={p} key={p.id}/>

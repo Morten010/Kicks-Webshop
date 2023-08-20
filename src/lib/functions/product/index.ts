@@ -1,6 +1,6 @@
 "use server"
 
-import { uploadFiles, useUploadThing } from "@/src/app/utils/uploadthing"
+import { utapi } from "uploadthing/server"
 import { db } from "../../db"
 
 type ImagesProps = {
@@ -24,7 +24,8 @@ type SizesProps = {
     quantity: string;
 }[]
 
-export default async function createProduct(product: ProductProps, images:ImagesProps, sizes: SizesProps ){
+// create product
+export async function createProduct(product: ProductProps, images:ImagesProps, sizes: SizesProps ){
     
     //create product
     const result = await db.product.create({
@@ -104,4 +105,104 @@ export default async function createProduct(product: ProductProps, images:Images
     }
 
     return result
+}
+
+
+// delete product
+export async function deleteProduct(id: number){
+    const product = await db.product.findFirst({
+        where: {
+          id: id
+        },
+        include: {
+          productImage: true,
+          size: true,
+        }
+    })
+
+    if(!product){
+        return null
+    }
+
+    const urlArray = product.productImage.map(item => {
+        return item.fileKey
+    })
+
+    if(!urlArray){
+        return null
+    }
+
+    const result = utapi.deleteFiles(urlArray)
+
+    if(!result){
+        return null
+    }
+    const deletedProduct = await db.product.delete({
+        where: {
+            id: id
+        }
+    })
+    
+    if(!deletedProduct){
+        return null
+    }
+    return deletedProduct
+}
+
+// get full product by id
+export const getFullProductByID = async (productId: number) => {
+    //get product with everything
+    const product = await db.product.findFirst({
+        where: {
+          id: productId
+        },
+        include: {
+          productImage: true,
+          size: true,
+        }
+    })
+
+    //if product dosent exist return null
+    if(!product){
+        return null
+    }
+
+    //if product exist return product
+    return product
+
+}
+
+// get full product
+export const getFullProduct = async (productId: number) => {
+    //get product with everything
+    const product = await db.product.findMany()
+
+    //if product dosent exist return null
+    if(!product){
+        return null
+    }
+
+    //if product exist return product
+    return product
+
+}
+
+// update product
+
+export const updateProduct = async (product: ProductProps, id: number) => {
+
+    //update product
+    const res = await db.product.update({
+        where: {
+            id: id
+        },
+        data: {
+            ...product
+        }
+    })
+    
+    if(!res){
+        return null
+    }
+    return res
 }

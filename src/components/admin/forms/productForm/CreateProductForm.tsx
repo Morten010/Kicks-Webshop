@@ -9,7 +9,6 @@ import { Product, ProductImage, Size } from '@prisma/client'
 
 // functions
 import { productValidation } from '@/src/lib/functions/productValidation'
-import createProduct from '@/src/lib/functions/product/createProduct'
 
 // components
 import SizeCard from '../SizeCard'
@@ -19,19 +18,14 @@ import Loader from '@/src/components/Loader'
 // styling
 import 'react-toastify/dist/ReactToastify.css';
 import { convertFile } from '@/src/app/utils/convertFile'
-import createImages from '@/src/lib/functions/image/createImages'
-import deleteSizes from '@/src/lib/functions/size/deleteSizes'
-import { updateSize } from '@/src/lib/functions/updateSizes'
-import getSizesFromId from '@/src/lib/functions/size/getSizesFromId'
 import { useRouter } from 'next/navigation'
-import { getFullProduct } from '@/src/lib/functions/product/getFullProduct'
-import deleteImages from '@/src/lib/functions/image/deleteImages'
-import createSizes from '@/src/lib/functions/size/createSizes'
-import { updateProduct } from '@/src/lib/functions/product/updateProduct'
-import deleteProduct from '@/src/lib/functions/product/deleteProduct'
 import Modal from '@/src/components/Modal'
-import getAllBrands from '@/src/lib/functions/brand/getAllBrands'
 import { getAllCategories } from '@/src/lib/functions/categories'
+import { deleteProduct, getFullProductByID, updateProduct } from '@/src/lib/functions/product'
+import { createImages, deleteImages } from '@/src/lib/functions/image'
+import { createSizes, deleteSizes, getSizesFromId } from '@/src/lib/functions/size'
+import { updateSize } from '@/src/lib/functions/updateSizes'
+import { getAllBrands } from '@/src/lib/functions/brand'
 
 // gender options
 const genderOptions = [
@@ -248,7 +242,7 @@ export default function CreateProductForm({edit = false, product}: {
     const handleUpdate = async () => {
         setLoading(true)
         //get current product
-        const CurrProduct = await getFullProduct(product?.id!)
+        const CurrProduct = await getFullProductByID(product?.id!)
         console.log(CurrProduct);
 
         //validate form

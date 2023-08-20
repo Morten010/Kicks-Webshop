@@ -2,8 +2,35 @@
 
 import { db } from "../../db"
 
+export async function getSizesFromId(id: number){
+    const result = await db.size.findMany({
+        where: {
+            productId: id
+        }
+    })
 
-export default async function createSizes(sizes: {
+    return result    
+}
+
+
+export async function deleteSizes(sizes: number[]){
+
+        const deleteImages = await db.size.deleteMany({
+            where: {
+               id: {
+                in: sizes
+               }
+            } 
+        })
+        if(deleteImages.count === 0){
+            return null
+        }
+        
+        return deleteImages.count
+}
+
+
+export async function createSizes(sizes: {
         id: number
         size: string
         quantity: string

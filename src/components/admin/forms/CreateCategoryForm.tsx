@@ -5,10 +5,8 @@ import CategoryCard from '../../CategoryCard'
 
 import { minLength, object, type Output, parse, string, maxLength} from 'valibot'; 
 import { useUploadThing } from '@/src/app/utils/uploadthing';
-import CreateCategory from '@/src/lib/functions/createCategory';
-import createCategory from '@/src/lib/functions/createCategory';
-import { convertFile } from '@/src/app/utils/convertFile';
 import { toast } from 'react-toastify';
+import createCategory from '@/src/lib/functions/createCategory';
 
 export default function CreateCategoryForm() {
     const [file, setFile] = useState<File>()

@@ -1,5 +1,5 @@
 "use client"
-import createBrand from '@/src/lib/functions/brand/createBrand'
+import { createBrand } from '@/src/lib/functions/brand'
 import React, { useRef, useState } from 'react'
 
 export default function CreateBrandForm() {

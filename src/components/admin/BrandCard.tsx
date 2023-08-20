@@ -1,9 +1,9 @@
 "use client"
-import deleteCategory from '@/src/lib/functions/brand/deleteCategory';
 import React, { useState } from 'react'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 import Modal from '../Modal';
 import { toast } from 'react-toastify';
+import { deleteCategory } from '@/src/lib/functions/brand';
 
 type itemProps = {
    item: {

@@ -1,9 +1,35 @@
 "use server"
 
-import { utapi } from "uploadthing/server"
+import { utapi } from "uploadthing/server";
 import { db } from "../../db";
 
-export default async function deleteImages(images: {
+// create images
+export async function createImages(images: {
+    fileUrl: string;
+    fileKey: string;
+}[], id: number){
+
+    const imagesWithId = images.map(image => {
+        return {
+            fileKey: image.fileKey, 
+            fileUrl: image.fileUrl,
+            productId: id
+        }
+    })
+    
+    const createdImages = await db.productImage.createMany({
+        data: imagesWithId
+    })
+    console.log(createdImages);
+    
+    if(!createdImages){
+        return null
+    }
+    return createdImages
+}
+
+// delete images
+export async function deleteImages(images: {
     id: number;
     fileUrl: string;
     fileKey: string;

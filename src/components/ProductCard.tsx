@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { Product, ProductImage, } from '@prisma/client'
+import { ProductImage, } from '@prisma/client'
 import { formatPrice } from '../app/utils/formatPrice'
 
 type ProductProps = {

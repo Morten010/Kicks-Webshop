@@ -1,12 +1,12 @@
 "use server"
-import { db } from '@/src/lib/db'
+import { db } from "../../db"
 
 type BrandProps = {
     name: string,
     desc: string
 }
 
-export default async function createCategory(brand: BrandProps){
+export async function createBrand(brand: BrandProps){
 
     const result = await db.brand.create({
         data: {
@@ -25,4 +25,16 @@ export default async function createCategory(brand: BrandProps){
             "status": false
         }
     }
+}
+
+export async function deleteCategory(id: number){
+    const result = await db.brand.delete({
+        where: { id: id }
+    })
+}
+
+export async function getAllBrands(){
+    const result = await db.brand.findMany()
+
+    return result    
 }

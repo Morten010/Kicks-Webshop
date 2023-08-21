@@ -20,11 +20,7 @@ export default async function createCategory(image:  ImagesProps, name: string) 
         },
         
     }) 
-    
-    console.log(image);
-    
-    console.log(newCat);
-    
+        
     if(!newCat){
         await utapi.deleteFiles(img.fileUrl)
         return null

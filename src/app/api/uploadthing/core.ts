@@ -1,6 +1,7 @@
 import { db } from "@/src/lib/db";
 import { getServerSession } from "next-auth";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
+import { authOptions } from "../auth/[...nextauth]/route";
  
 const f = createUploadthing();
  
@@ -14,18 +15,13 @@ export const ourFileRouter = {
     // Set permissions and file types for this FileRoute
     .middleware(async ({ req }) => {
       // This code runs on your server before upload
-      const user = await getServerSession();
-      const isAdmin = await db.user.findUnique({
-        where: {
-          email: user?.user.email
-        }
-      })
+      const user = await getServerSession(authOptions);
 
       // If you throw, the user will not be able to upload
-      if (isAdmin?.role !== "ADMIN") throw new Error("Unauthorized");
+      if (user?.user.role !== "ADMIN") throw new Error("Unauthorized");
  
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
-      return { userId: isAdmin.id };
+      return { userId: user?.user.id };
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload

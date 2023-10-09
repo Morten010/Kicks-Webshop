@@ -6,7 +6,11 @@ import { Rubik } from 'next/font/google'
 const rubik = Rubik({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Kicks',
+  metadataBase: new URL("https://kicks-webshop.vercel.app/"),
+  title: {
+    default: 'Kicks',
+    template: `Kicks | %s`
+  },
   description: "Discover trendy footwear at Kicks! Shop top brands like Nike, Adidas, and Puma for style and performance. Elevate your look with our curated collection of sneakers and classics. Unbeatable style and comfort, delivered to your door!",
 }
 

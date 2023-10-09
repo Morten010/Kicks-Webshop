@@ -134,27 +134,26 @@ export default function Navbar() {
         {/* logo end */}
 
         {/* user section */}
-        <ul
+        <div
         className='flex gap-3 sm:gap-6 text-2xl items-center'
         >
-            <li>
-                <Link href="search">
-                    <BiSearch 
-                    className='nav-hover'
-                    />
-                </Link>
-            </li>
-            <li
-            className='hidden sm:block'
-            >
-                <Link href="/profile">
-                    <BiSolidUser 
-                    className='nav-hover'
-                    />
-                </Link>
-            </li>
+        <Link href="search">
+            <BiSearch 
+            className='nav-hover'
+            aria-label='Search page'
+            />
+        </Link>
+        <Link 
+        href="/profile"
+        aria-label='Profile page'
+        className='hidden sm:block'
+        >
+            <BiSolidUser 
+            className='nav-hover'
+            />
+        </Link>
             <Cart showCart={showCart} setShowCart={ handleCart}/>
-        </ul>
+        </div>
         {/* user section end */}
     </nav>
   )

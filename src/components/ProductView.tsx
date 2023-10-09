@@ -155,6 +155,7 @@ export default function ProductView({product}: ProductProps) {
                         key={item.id}
                         className={`w-10 h-10 grid place-content-center rounded ${item.quantity === 0 ? "bg-gray-300 text-gray-400": size === item.size ? "bg-brand-black text-white" : "bg-white"}`}
                         onClick={() => item.quantity === 0 ? "" : handleSize(item?.size!)}
+                        aria-label={`size ${item.size}`}
                         >
                             {item.size}
                         </button>
@@ -169,12 +170,16 @@ export default function ProductView({product}: ProductProps) {
                 <div
                 className='flex gap-1 mt-4'
                 >
-                    {product && <button className="secondary-btn w-full"
+                    {product && <button 
+                    className="secondary-btn w-full"
                     onClick={() => handleCart()}
                     >
                         ADD TO CART
                     </button>}
-                    <button className='secondary-btn text-xl'>
+                    <button 
+                    className='secondary-btn text-xl'
+                    aria-label='Add to liked'
+                    >
                         <AiOutlineHeart />
                     </button>
                 </div>

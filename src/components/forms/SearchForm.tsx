@@ -184,6 +184,7 @@ export default function SearchForm({count, sizes}: {
             />
             <button
             className='bg-brand-blue text-white rounded-lg p-3 text-xl'
+            aria-label='Search for product'
             >
                 <CgSearch/>
             </button>
@@ -236,6 +237,7 @@ export default function SearchForm({count, sizes}: {
                 value="female" 
                 className='hidden'
                 onClick={handleGender}
+                aria-label='Pick a gender'
                 />
                 {gender === "female" ? (
                     <MdOutlineCheckBox 
@@ -284,6 +286,7 @@ export default function SearchForm({count, sizes}: {
             onChange={handleOrderBy}
             value={orderBy}
             className='mb-4 mt-2 z-[55]'
+            aria-label='Sort by an order'
             />
         )}
         {/* end of sort by */}
@@ -299,6 +302,7 @@ export default function SearchForm({count, sizes}: {
             onChange={handleCategory}
             value={categories}
             className='mb-4 mt-2 z-50'
+            aria-label='Sort by category'
             />
         )}
         {/* end of categories */}

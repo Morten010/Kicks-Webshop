@@ -29,6 +29,7 @@ export default function SearchFormContainer({count, sizes}: {
                 />
                 <button
                 className='bg-brand-blue text-white rounded-lg py-2 px-3 text-lg'
+                aria-label='Search for product'
                 >
                     <CgSearch/>
                 </button>

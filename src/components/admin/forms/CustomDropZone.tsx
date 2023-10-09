@@ -8,7 +8,7 @@ export default function CustomDropZone({handleFiles}: {
   return (
     <Dropzone onDrop={(acceptedFiles: File[]) => handleFiles(acceptedFiles)}>
         {({getRootProps, getInputProps}) => (
-            <section className='py-2 px-2 rounded-lg w-full border-gray-500 border-dashed border-2 mb-4 mt-3 cursor-pointer'>
+            <section className='p-2 rounded-lg w-full border-gray-500 border-dashed border-2 mb-4 mt-3 cursor-pointer'>
             <div 
             {...getRootProps()}
             className='w-full h-full grid place-content-center text-center text-gray-500 p-4'

@@ -4,9 +4,8 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials"
 import { db } from "@/src/lib/db";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { redirect } from "next/dist/server/api-utils";
 
-export const authOptions: NextAuthOptions  = {
+const authOptions: NextAuthOptions  = {
     adapter: PrismaAdapter(db),
     providers: [
         CredentialsProvider({

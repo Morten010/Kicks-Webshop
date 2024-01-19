@@ -1,4 +1,4 @@
-import { authOptions } from '@/src/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/src/lib/db/authOptions';
 import { getServerSession } from 'next-auth';
 import { useRouter } from 'next/router';
 import React from 'react'

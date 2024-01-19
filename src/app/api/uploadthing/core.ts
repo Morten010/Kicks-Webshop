@@ -1,7 +1,7 @@
 import { db } from "@/src/lib/db";
 import { getServerSession } from "next-auth";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/src/lib/db/authOptions";
  
 const f = createUploadthing();
  

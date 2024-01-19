@@ -5,7 +5,7 @@ import React from 'react'
 import {BsArrowRightShort} from "react-icons/bs"
 import LoginForm from '@/src/components/forms/LoginForm'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '@/src/app/api/auth/[...nextauth]/route'
+import { authOptions } from '@/src/lib/db/authOptions'
 import { redirect } from 'next/navigation'
 
 

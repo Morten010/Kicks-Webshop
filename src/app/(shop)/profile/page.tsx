@@ -1,7 +1,7 @@
 import { db } from '@/src/lib/db';
 import { Order} from '@prisma/client'
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../../api/auth/[...nextauth]/route';
+import { authOptions } from '@/src/lib/db/authOptions';
 import SignoutButton from '@/src/components/profile/SignoutButton';
 
 const initialUser : {

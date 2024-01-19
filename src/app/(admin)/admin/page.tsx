@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import Image from "next/image";
-import { authOptions } from "../../api/auth/[...nextauth]/route";
+import { authOptions } from "@/src/lib/db/authOptions";
 import { redirect } from "next/navigation";
 import LoginForm from "@/src/components/forms/LoginForm";
 import Link from "next/link";

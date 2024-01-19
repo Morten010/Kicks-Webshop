@@ -4,7 +4,7 @@ import { BsArrowRightShort } from 'react-icons/bs'
 // components
 import SignUpForm from "@/src/components/forms/SigUpForm"
 import { getServerSession } from 'next-auth'
-import { authOptions } from '@/src/app/api/auth/[...nextauth]/route'
+import { authOptions } from '@/src/lib/db/authOptions'
 import { redirect } from 'next/navigation'
 
 

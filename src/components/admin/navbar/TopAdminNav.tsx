@@ -1,7 +1,7 @@
 import React from 'react'
 import NavSignOut from './NavSignOut'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '@/src/app/api/auth/[...nextauth]/route'
+import { authOptions } from '@/src/lib/db/authOptions'
 
 export default async function TopAdminNav() {
     const sessionData = await getServerSession(authOptions)

@@ -31,9 +31,9 @@ export default async function Home() {
       <Image
       src="/hero-title.svg"
       priority
-      height={300}
       width={300}
-      layout="responsive"
+      height={20}
+      className="w-full"
       alt="do it right"
       />
       {/* hero title end */}

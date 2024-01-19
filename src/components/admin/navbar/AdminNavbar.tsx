@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 // styling
 import {BsBoxSeam} from "react-icons/bs"
-import {CiCircleList} from "react-icons/ci"
+import {CiCircleList, CiMail} from "react-icons/ci"
 import {LiaShoppingBasketSolid} from "react-icons/lia"
 import { BiCategoryAlt, BiHomeAlt2 } from 'react-icons/bi';
 
@@ -109,6 +109,16 @@ export default function AdminNavbar() {
                     <CiCircleList 
                     className='text-xl'
                     /> order list
+                </Link>
+            </li>
+            <li>
+                <Link
+                href="/admin/dashboard/newsletter"
+                className={`flex justify-between gap-4 items-center py-2 px-4 rounded-md ${isPathName("/admin/dashboard/newsletter")? "bg-brand-blue text-white": ""}`}
+                >
+                    <CiMail
+                    className='text-xl'
+                    /> Newsletter
                 </Link>
             </li>
         </ul>

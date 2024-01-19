@@ -1,11 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    experimental: {
-        serverActions: true,
-        esmExternals: true
-    },
     images: {
-        domains: ["uploadthing.com"]
+        remotePatterns: [{
+            hostname: "uploadthing.com"
+        }]
     }
 }
 

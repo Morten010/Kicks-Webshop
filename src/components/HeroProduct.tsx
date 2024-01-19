@@ -62,10 +62,11 @@ export default function HeroProduct() {
         <div
         className='flex flex-col absolute right-0 bottom-0 -translate-x-2 -translate-y-2 p-1 gap-4'
         >
-            {images.map(image => (
+            {images.map((image, index) => (
                 <div
                 className='relative aspect-square h-16 w-16 lg:w-24 lg:h-24 md:w-20 md:h-20 hover:opacity-80 transition-opacity'
                 onClick={() => setChoosenImages(image)}
+                key={index + "image"}
                 >
                     <Image
                     fill

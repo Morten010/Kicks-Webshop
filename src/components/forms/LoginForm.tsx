@@ -94,7 +94,7 @@ export default function LoginForm({redirect = null}: LoginFormProps ) {
       <label>
         <span className='hidden'>Password</span>
         <input 
-        type="text" 
+        type="password" 
         placeholder='Password'
         className={`bg-transparent border border-brand-black rounded-md p-2 w-full ${errors.password ? "border-red-600 focus:outline-red-600" : ""}`}
         onChange={(e) => setPassword(e.target.value)}

@@ -7,6 +7,7 @@ import { minLength, object, type Output, parse, string, maxLength} from 'valibot
 import { useUploadThing } from '@/src/app/utils/uploadthing';
 import { toast } from 'react-toastify';
 import createCategory from '@/src/lib/functions/createCategory';
+import { revalidatePath } from 'next/cache';
 
 export default function CreateCategoryForm() {
     const [file, setFile] = useState<File>()
@@ -54,6 +55,8 @@ export default function CreateCategoryForm() {
                     setError("Something went wrong :(")
                 }
                 toast.success("Category was added!!!")
+                // revalidatePath("/")
+                // revalidatePath("/admin/dashboard/categories")
             }else{
                 setLoading(false)
                 throw new Error("Failed to upload image: forst")

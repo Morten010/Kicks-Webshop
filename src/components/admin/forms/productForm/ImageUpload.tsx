@@ -15,13 +15,11 @@ export default function ImageUpload({setSelectedImages, selectedImages}: ImageUp
     // when files are selected
     const onSelectFile = (selectedFiles: File[]) => {
         const selectedFilesArray = Array.from(selectedFiles)
-        console.log(selectedFiles);
         
         // make array of new images
         const imageArray = selectedFilesArray.map((file) =>{
             return URL.createObjectURL(file as Blob | MediaSource)
         })
-        console.log([...selectedImages, ...imageArray]);
         
         const sortedSelectImages = selectedImages.filter(image => {
             if(image){
@@ -30,7 +28,6 @@ export default function ImageUpload({setSelectedImages, selectedImages}: ImageUp
         })
         
         setSelectedImages([...sortedSelectImages, ...imageArray])
-        console.log([...sortedSelectImages, ...imageArray]);
         
     }
 

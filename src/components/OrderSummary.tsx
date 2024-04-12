@@ -18,14 +18,12 @@ export default function OrderSummary({whiteBg = false}: SummaryProps) {
   const user = useSession()
 
   if(cart){
-    console.log(cart.cart);
   }
   const handleCheckout = async () => {
     setLoading(true)
 
     if(!cart.cart){
       setLoading(false)
-      console.log("wait");
       return
     }
 
@@ -46,7 +44,6 @@ export default function OrderSummary({whiteBg = false}: SummaryProps) {
       return null;
     }
 
-    console.log(response);
     const data = await response.json()
 
     if(!data.url){

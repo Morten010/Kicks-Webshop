@@ -8,7 +8,6 @@ export const useCart = create(
         totalPrice: 0,
     
         addProduct: (product) => {
-            console.log("ran");
             //get cart and get if item is in cart
             const cart = get().cart
             const cartItem = cart.find(item => item.id === product.id)
@@ -26,12 +25,11 @@ export const useCart = create(
             //if cart item does exist
             //if product has same id but diffrent size
             const cartItemsIds = cart.find(p => p.id === product.id && p.size === product.size)
-            console.log(cartItemsIds);
 
 
             // run if item has same id but is a new size
             if(!cartItemsIds){
-                console.log("Has same id but diffrent size");
+                console("Has same id but diffrent size");
                 set((state) => ({
                     totalItems: state.totalItems + 1,
                     totalPrice: state.totalPrice + product.price,
@@ -41,11 +39,10 @@ export const useCart = create(
 
             // if product size and id is the same
             if(cartItemsIds){
-                console.log("Has same id but and same size");
+                console("Has same id but and same size");
                 // update cart with adding amount
                 // const without = cart.map(p => {})
                 const newCart = cart.map(p => {
-                    console.log(p.id,p.size, product.id,product.size);
                     if(product.id == p.id && product.size == p.size){
                         return {...product, amount: p.amount + 1}
                     }else{

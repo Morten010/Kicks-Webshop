@@ -44,8 +44,6 @@ export async function createSizes(sizes: {
             productId: id
         }
     })
-    console.log(sizesWithId);
-    
     
     //create sizes
     const createdSizes = await db.size.createMany({

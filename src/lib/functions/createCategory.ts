@@ -10,7 +10,6 @@ type ImagesProps = {
 
 export default async function createCategory(image:  ImagesProps, name: string) {
     const img = image[0]
-    console.log(image, name)
     
     const newCat = await db.category.create({
         data: {

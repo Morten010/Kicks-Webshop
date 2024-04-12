@@ -7,7 +7,6 @@ export default async function page() {
 
     const list = await resend.audiences.list();
 
-    console.log();
   return (
     <div>
         <h1

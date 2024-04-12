@@ -42,7 +42,6 @@ export const productValidation = async (product: ProductValidationProps) => {
     }else{
         errors.desc = ""
     }
-    console.log(product.price);
     
     //validate price
     if(!product.price){
@@ -80,8 +79,6 @@ export const productValidation = async (product: ProductValidationProps) => {
         errors.category = ""
     }
 
-    console.log(product.images);
-    
     //validate image
     if(product.images[0] === undefined){
         errors.images = "Add Atleast 1 image"

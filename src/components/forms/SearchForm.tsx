@@ -87,7 +87,6 @@ export default function SearchForm({count, sizes}: {
     }
 
     const handleGender = (e:any) => { 
-        console.log(gender, e.target.value);
           
        if(gender === e.target.value){
         setGender("")
@@ -148,7 +147,6 @@ export default function SearchForm({count, sizes}: {
                     })
                 }
             }
-            console.log(cat);
         }
 
         fetchData()

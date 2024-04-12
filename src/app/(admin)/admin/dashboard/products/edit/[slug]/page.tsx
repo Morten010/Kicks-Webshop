@@ -6,8 +6,6 @@ export const revalidate = 2
 
 export default async function ChangeProductPage({params}: {params: {slug: string}}) {
   const slug = params.slug
-  console.log(slug);
-  console.log(params);
 
   const product = await db.product.findFirst({
     where: {

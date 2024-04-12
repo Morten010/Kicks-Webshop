@@ -18,7 +18,6 @@ export default async function createUser(user: userProps){
   const exists = await db.user.findUnique({
     where: {email: user.email}
   })
-  console.log(exists);
   
 
   if(!exists){

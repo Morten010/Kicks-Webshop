@@ -12,7 +12,6 @@ const page: FC<pageProps> = async ({params: { id }}) => {
     
     const {data: audience} = await resend.audiences.get(id);
 
-    console.log(audience);
     
   return (
     <div>

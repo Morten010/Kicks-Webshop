@@ -31,7 +31,7 @@ export async function createProduct(product: ProductProps, images:ImagesProps, s
     const result = await db.product.create({
         data: {
             name: product.name,
-            slug: product.name.replace(/\s+/g, '-').replaceAll("/", "_").replaceAll('"', "").replaceAll("'", "").toLowerCase(),
+            slug: product.name.replace(/\s+/g, '-').replaceAll("/", "_").replaceAll('"', "").replaceAll("'", "")?.toLowerCase(),
             desc: product.desc,
             price: product.price,
             brandId: product.brandId,
@@ -54,14 +54,12 @@ export async function createProduct(product: ProductProps, images:ImagesProps, s
         }
     })
 
-    console.log(sizesWithId);
     
     //create sizes
     const uploadedSizes = await db.size.createMany({
         data: sizesWithId
     })
 
-    console.log(uploadedSizes);
     
     // if sizes upload went wrong delete product and throw error
     if(!uploadedSizes.count){
@@ -80,8 +78,6 @@ export async function createProduct(product: ProductProps, images:ImagesProps, s
             productId: result.id
         }
     })
-    console.log(imagesWithId);
-    console.log("result", imagesWithId);
 
     
 

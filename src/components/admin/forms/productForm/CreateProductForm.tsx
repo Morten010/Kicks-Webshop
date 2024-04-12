@@ -156,7 +156,6 @@ export default function CreateProductForm({edit = false, product}: {
 
         //format image blob into image file
         const data = await convertFile(selectedImages)
-        console.log(data);
 
         const imagesPromises = data.map(async (item) => {
             const uploaded = await startUpload([item])
@@ -243,7 +242,6 @@ export default function CreateProductForm({edit = false, product}: {
         setLoading(true)
         //get current product
         const CurrProduct = await getFullProductByID(product?.id!)
-        console.log(CurrProduct);
 
         //validate form
         const res = await productValidation({
@@ -288,19 +286,15 @@ export default function CreateProductForm({edit = false, product}: {
             //if successfull update image schema
             if(UploadedImages){
                 createImages(UploadedImages, product?.id!)
-                console.log("Added new image: ", UploadedImages);
             }
         }
 
         //if image is deleted
         const x = CurrProduct?.productImage?.filter(image => !selectedImages.includes(image.fileUrl))
-        console.log(x);
         
         if(x?.length !== 0){
             //get keys of the images which need to be deleted
-            console.log("x");
             const result = await deleteImages(x!)
-            console.log(result);
             
         }
 
@@ -313,7 +307,6 @@ export default function CreateProductForm({edit = false, product}: {
         if(sizesAfter[0]){
             //add sizes
             const newSize = await createSizes(sizesAfter, product?.id!)
-            console.log(newSize);
             if(!newSize){
                 // throw error
                 return
@@ -335,12 +328,10 @@ export default function CreateProductForm({edit = false, product}: {
         //make array of just item id's of all the new sizes
         const newSizeLeft = sizeLeft.map(item => {return item.id})
         const newSize = currSize?.filter(item => !newSizeLeft.includes(item))
-        console.log(newSize);
 
         //if size deleted
         if(newSize![0]){
             const deletedSizes = await deleteSizes(newSize!)
-            console.log(deletedSizes);
         }
 
         // all current sizes
@@ -366,7 +357,6 @@ export default function CreateProductForm({edit = false, product}: {
         //if there is anything to be updated
         if(comparedResult.length !== 0){
             const res = updateSize(comparedResult)
-            console.log(res);
             
         }
         
@@ -389,8 +379,6 @@ export default function CreateProductForm({edit = false, product}: {
         const newPrice = parseFloat(price.current?.value as string).toFixed(2);
         const newPriceInt = parseInt(newPrice.replaceAll(".", "")) 
         const oldBrand = options.filter(item => parseInt(item.value) === product?.brandId)
-        console.log(gender.value);
-        console.log(product?.gender);
 
         if(
             CurrProduct?.name !== title.current?.value 
@@ -496,19 +484,15 @@ export default function CreateProductForm({edit = false, product}: {
                         label: item.name as string,
                     }
                 })
-                console.log(cat);
                 
                 setCategoryOptions(newCat)
                 cat.map(item => {
-                    console.log(product?.categoryId, item.id);
                     if(item.id === product?.categoryId){
-                        console.log("THIS",item, product.categoryId);
                         
                         setCategories({
                             label: item.name!,
                             value: item.id.toString()
                         })
-                        console.log("CAT", item);
                         
                     }
                 })

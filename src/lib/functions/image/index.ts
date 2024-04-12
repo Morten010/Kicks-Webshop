@@ -20,7 +20,6 @@ export async function createImages(images: {
     const createdImages = await db.productImage.createMany({
         data: imagesWithId
     })
-    console.log(createdImages);
     
     if(!createdImages){
         return null

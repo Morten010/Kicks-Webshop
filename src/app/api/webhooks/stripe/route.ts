@@ -9,7 +9,6 @@ export async function POST(req: Request, res: Response) {
   const signature = headers().get("Stripe-Signature") ?? ""
 
   let event: Stripe.Event
-  console.log();
 
   try {
     event = stripe.webhooks.constructEvent(
@@ -38,7 +37,6 @@ export async function POST(req: Request, res: Response) {
       //Create shipping address
       // @ts-ignore
       const ship = data.shipping.address
-      console.log("SHIPPING: ", ship);
       
       const createAddress = await db.address.create({
         data: {
@@ -54,14 +52,10 @@ export async function POST(req: Request, res: Response) {
       //get customer
       const customer = await stripe.customers.retrieve(data.customer)
         .then((customer) => {
-        console.log(customer);
         return customer as any
       }).catch(err => console.log(err));
       
-      console.log(customer.metadata.orderId);
 
-      console.log(data.phone, data.email,);
-      console.log(data);
       
       const updateOrder = await db.order.update({
         where: {
@@ -76,7 +70,6 @@ export async function POST(req: Request, res: Response) {
         }
       })
       
-      console.log(updateOrder);
       
       break;
     // ... handle other event types
@@ -91,13 +84,10 @@ export async function POST(req: Request, res: Response) {
           id: parseInt(customerEx.metadata.orderId)
         }
       })   
-      console.log("Deleted order: #", customerEx.metadata.orderId);
       const deleteCustomer = await stripe.customers.del(data.customer)
-      console.log("Deleted customer: ", deleteCustomer.deleted);
          
       break
     default:
-      console.log(`Unhandled event type ${event.type}`);
   }
 
   return new Response()

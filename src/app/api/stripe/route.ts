@@ -70,7 +70,6 @@ export async function POST(req: Request) {
         })
         // resolve promises in productPromises
         const products = await Promise.all(productsPromises)
-        console.log(products)
         
 
         // Create Checkout Sessions from body params.
@@ -100,7 +99,6 @@ export async function POST(req: Request) {
 
         return new Response(JSON.stringify(session), {status: 200})
     } catch (err: any) {
-        console.log("err message: ", err.message);
         return new Response(err.statusCode || 500, {status: err.statusCode || 500,});
     }
 }

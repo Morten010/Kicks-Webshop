@@ -9,6 +9,10 @@ const nextConfig = {
                 hostname: "utfs.io"
             }
         ]
+    },
+    experimental: {
+        webpackBuildWorker: true,
+        esmExternals: false
     }
 }
 

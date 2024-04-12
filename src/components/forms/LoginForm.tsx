@@ -46,7 +46,6 @@ export default function LoginForm({redirect = null}: LoginFormProps ) {
       setloading(false)
       return
     } 
-    console.log(redirect);
     
     const result = await signIn("credentials", {
       email,
@@ -58,8 +57,6 @@ export default function LoginForm({redirect = null}: LoginFormProps ) {
     if(result?.error){
       setMsg("Incorrect username or password")
     }
-    console.log(result);
-    
     if(!result?.error){
       if(redirect){
         router.push(redirect)

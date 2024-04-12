@@ -32,7 +32,6 @@ export async function generateMetadata({ params }: ProductDetailsProps) {
       }
     }
   }catch(err){
-    console.log(err);
     return{
       title: "Not Found",
       description: "The page you are looking for does not exist."

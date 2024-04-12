@@ -22,8 +22,6 @@ export default function SizeCard({size, handleSizeDelete, handleSizeUpdate}:size
 
     useEffect(() => {
         handleSizeUpdate(size.id, shoeSize, quantity )
-        console.log("ran");
-        
     }, [shoeSize, quantity])
     
   return (

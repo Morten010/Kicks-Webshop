@@ -49,7 +49,7 @@ export default function ProductView({product}: ProductProps) {
         addProduct(cartProduct)
     }
     if(cart){
-        console.log(cart.cart);
+        // console.log(cart.cart);
     }
     
     const handleBuy = async () => {
@@ -84,7 +84,6 @@ export default function ProductView({product}: ProductProps) {
             return null;
         }
     
-        console.log(response);
         const data = await response.json()
     
         if(!data.url){

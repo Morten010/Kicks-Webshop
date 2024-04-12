@@ -1,10 +1,5 @@
 import { formatPrice } from '@/src/app/utils/formatPrice';
 import { db } from '@/src/lib/db';
-import { authOptions } from '@/src/lib/db/authOptions';
-import { log } from 'console';
-import { getServerSession } from 'next-auth';
-import { useRouter } from 'next/router';
-import React from 'react'
 
 
 export default async function DashBoard() {

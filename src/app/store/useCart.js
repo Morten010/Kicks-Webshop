@@ -29,7 +29,6 @@ export const useCart = create(
 
             // run if item has same id but is a new size
             if(!cartItemsIds){
-                console("Has same id but diffrent size");
                 set((state) => ({
                     totalItems: state.totalItems + 1,
                     totalPrice: state.totalPrice + product.price,
@@ -39,7 +38,6 @@ export const useCart = create(
 
             // if product size and id is the same
             if(cartItemsIds){
-                console("Has same id but and same size");
                 // update cart with adding amount
                 // const without = cart.map(p => {})
                 const newCart = cart.map(p => {

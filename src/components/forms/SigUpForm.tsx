@@ -75,13 +75,14 @@ export default function SigUpForm() {
             placeholder='First Name'
             className={`bg-transparent border border-brand-black rounded-md p-2 w-full ${errors.firstName ? "border-red-600 focus:outline-red-600" : ""}`}
             onChange={(e) => setFirstName(e.target.value)}
-
+            data-cy="firstName"
             value={firstName}
             />
             {errors.firstName && (
-              <p
+              <p 
               key={errors.firstName}
               className='text-red-600 '
+              data-cy="error-firstName"
               >
                 {errors.firstName}
               </p>
@@ -94,12 +95,14 @@ export default function SigUpForm() {
             type="text"
             placeholder='Last Name'
             className={`bg-transparent border border-brand-black rounded-md p-2 w-full ${errors.lastName ? "border-red-600 focus:outline-red-600" : ""}`}
+            data-cy="lastName"
             onChange={(e) => setLastName(e.target.value)}
             value={lastName}
             />
             {errors.lastName && (
               <p
               className='text-red-600 '
+              data-cy="error-lastName"
               >
                 {errors.lastName}
               </p>
@@ -122,6 +125,7 @@ export default function SigUpForm() {
               type="radio"
               name='gender'
               value="male"
+              data-cy="gender-male"
               checked={gender === "male"}
               onChange={onGenderChange}
               />
@@ -135,6 +139,7 @@ export default function SigUpForm() {
               type="radio"
               name='gender'
               value="female"
+              data-cy="gender-female"
               checked={gender === "female"}
               onChange={onGenderChange}
               />
@@ -150,6 +155,7 @@ export default function SigUpForm() {
               value="other"
               checked={gender === "other"}
               onChange={onGenderChange}
+              data-cy="gender-other"
               />
               <span>Other</span>
             </label>
@@ -157,6 +163,7 @@ export default function SigUpForm() {
           {errors.gender && (
               <p
               className='text-red-600 '
+              data-cy="error-gender"
               >
                 {errors.gender}
               </p>
@@ -175,11 +182,14 @@ export default function SigUpForm() {
             placeholder='Email'
             className={`bg-transparent border border-brand-black rounded-md p-2 w-full ${errors.email ? "border-red-600 focus:outline-red-600" : ""}`}
             onChange={(e) => setEmail(e.target.value)}
+            data-cy="email"
             value={email}
             />
             {errors.email && (
               <p
               className='text-red-600 '
+              data-cy="error-email"
+
               >
                 {errors.email}
               </p>
@@ -191,12 +201,14 @@ export default function SigUpForm() {
             type="password"
             placeholder='Password'
             className={`bg-transparent border border-brand-black rounded-md p-2 w-full ${errors.password ? "border-red-600 focus:outline-red-600" : ""}`}
+            data-cy="password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             />
             {errors.password && (
               <p
               className='text-red-600 '
+              data-cy="error-password"
               >
                 {errors.password}
               </p>
@@ -207,6 +219,7 @@ export default function SigUpForm() {
         <button
         className='secondary-btn flex justify-between items-center'
         onClick={(e) => handleSubmit(e)}
+        data-cy="submit"
         >
             CREATE ACCOUNT
             <BsArrowRightShort
@@ -216,6 +229,7 @@ export default function SigUpForm() {
         
         {/* error message */}
         {msg.msg && <p
+        data-cy="status-msg"
         className={msg.status ? "text-green-500" : "text-red-600"}
         >
             {msg.msg} {msg.status && <Link

@@ -1,31 +1,31 @@
 "use client"
 
-import {useEffect, useRef, useState} from 'react'
-import React from 'react'
-import Select, { GroupBase } from 'react-select'
 import { useUploadThing } from '@/src/app/utils/uploadthing'
-import { toast } from 'react-toastify'
 import { Product, ProductImage, Size } from '@prisma/client'
+import { useEffect, useRef, useState } from 'react'
+import Select, { GroupBase } from 'react-select'
+import { toast } from 'react-toastify'
 
 // functions
 import { productValidation } from '@/src/lib/functions/productValidation'
 
 // components
+import Loader from '@/src/components/Loader'
 import SizeCard from '../SizeCard'
 import ImageUpload from './ImageUpload'
-import Loader from '@/src/components/Loader'
 
 // styling
-import 'react-toastify/dist/ReactToastify.css';
 import { convertFile } from '@/src/app/utils/convertFile'
-import { useRouter } from 'next/navigation'
+import { revalidatePage } from '@/src/app/utils/serveractions/revalidatePage'
 import Modal from '@/src/components/Modal'
+import { getAllBrands } from '@/src/lib/functions/brand'
 import { getAllCategories } from '@/src/lib/functions/categories'
-import { createProduct, deleteProduct, getFullProductByID, updateProduct } from '@/src/lib/functions/product'
 import { createImages, deleteImages } from '@/src/lib/functions/image'
+import { createProduct, deleteProduct, getFullProductByID, updateProduct } from '@/src/lib/functions/product'
 import { createSizes, deleteSizes, getSizesFromId } from '@/src/lib/functions/size'
 import { updateSize } from '@/src/lib/functions/updateSizes'
-import { getAllBrands } from '@/src/lib/functions/brand'
+import { useRouter } from 'next/navigation'
+import 'react-toastify/dist/ReactToastify.css'
 
 // gender options
 const genderOptions = [
@@ -215,6 +215,8 @@ export default function CreateProductForm({edit = false, product}: {
             { id: 7, size: "46", quantity: (Math.floor(Math.random() * 12) + 5).toString() }
         ]);
         setSelectedImages([])
+        revalidatePage("/")
+        revalidatePage("/admin/dashboard/products")
     }
 
     const closeModal = () => {
@@ -416,9 +418,11 @@ export default function CreateProductForm({edit = false, product}: {
             toast.error("Could not delete the Product.")
         }
         toast.success("Sucessfully Deleted Product!")
+        revalidatePage("/")
+        revalidatePage("/admin/dashboard/products")
         setTimeout(() => {
             navigate.push("/admin/dashboard/products")
-        }, 3000);
+        }, 5000);
     }
 
     // get all categories and set them as options

@@ -25,4 +25,3 @@ Built with the Next.js App Router, TypeScript, Tailwind, Planetscale, Zustand an
 
 - [x] Checkout with **Stripe Checkout**
 - [ ] Skeleton Loading
-- [ ] React Email

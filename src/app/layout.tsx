@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import Provider from '@/src/context/provider'
 import { Rubik } from 'next/font/google'
+import Script from 'next/script'
 
 const rubik = Rubik({ subsets: ['latin'] })
 
@@ -21,6 +22,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Script 
+        defer 
+        src="https://analytics.mortenra.com/script.js" 
+        data-website-id="a0488504-232a-4524-861f-53d81acdf97e" 
+      />
       <body className={`bg-grayish ${rubik.className}`}>
         <Provider>
           {children}

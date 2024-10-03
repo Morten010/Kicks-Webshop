@@ -8,7 +8,6 @@ export async function createImages(images: {
     fileUrl: string;
     fileKey: string;
 }[], id: number){
-
     const imagesWithId = images.map(image => {
         return {
             fileKey: image.fileKey, 
@@ -24,6 +23,9 @@ export async function createImages(images: {
     if(!createdImages){
         return null
     }
+    console.log(images);
+    console.log(createdImages)
+    
     return createdImages
 }
 

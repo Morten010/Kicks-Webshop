@@ -271,6 +271,8 @@ export default function CreateProductForm({edit = false, product}: {
         if(newImages[0]){
             //convert blob to file for upload
             const convertedFiles = await  convertFile(newImages);
+            console.log(convertedFiles);
+            
             //upload file to storage
             const UploadedImages = await startUpload(convertedFiles);
             //update selected array with new uploaded url so we can delete it without refreshing
@@ -399,7 +401,9 @@ export default function CreateProductForm({edit = false, product}: {
                 gender: gender.value,
                 categoryId: parseInt(categories.value)
             }
+
             const updatedProduct = await updateProduct(newProduct, product?.id!)
+
              //success message and stop loading
             toast.success("Updated the product🥳!")
             setLoading(false)
